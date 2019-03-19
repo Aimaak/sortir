@@ -1,0 +1,40 @@
+{% extends "layout.html.twig" %}
+
+{% block maincontent %}
+    <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
+    <h4 class="infosDroite">Participant :</h4>
+    <h5>Filtrer les sorties</h5>
+    <form method="post">
+        <div class="form-group">
+            <label for="site">Site : </label>
+            <select name="site" id="site">
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nomSortie">Le nom de la sortie contient : </label>
+            <input type="search" class="form-control" id="nomSortie" name="nomSortie">
+        </div>
+        <div class="form-group">
+            <label for="dateDebut">Entre : </label>
+            <input type="date" class="form-control" id="dateDebut" name="dateDebut">
+            <label for="dateFin">et : </label>
+            <input type="date" class="form-control" id="dateFin" name="dateFin">
+        </div>
+        <div class="form-group">
+            <input type="checkbox" class="form-control" id="nomSortie" name="nomSortie">
+            <label for="filtresCheck">Sorties dont je suis l'organisateur/trice</label>
+            <input type="checkbox" class="form-control" id="nomSortie" name="nomSortie">
+            <label for="filtresCheck">Sorties auxquelles je suis inscrit/e</label>
+            <input type="checkbox" class="form-control" id="nomSortie" name="nomSortie">
+            <label for="filtresCheck">Sorties auxquelles je ne suis pas inscrit/e</label>
+            <input type="checkbox" class="form-control" id="nomSortie" name="nomSortie">
+            <label for="filtresCheck">Sorties passées</label>
+        </div>
+        <input type="submit">Rechercher</input>
+    </form>
+{% endblock %}
+
+{% block recherche %}
+
+{% endblock %}
