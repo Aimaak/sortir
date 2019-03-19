@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,10 +30,12 @@ class SortieController extends Controller
      */
     public function listeAction(EntityManagerInterface $em)
     {
+        $sites = $em->getRepository(Site::class)->findAll();
         $sorties = $em->getRepository(Sortie::class)->findAll();
 
-        return $this->render("sortie/liste.html.twig", [
-            "sorties" => $sorties
+        return $this->render('sortie/liste.html.twig', [
+            "sorties" => $sorties,
+            "sites" => $sites
         ]);
     }
 

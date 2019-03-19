@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ParticipantController extends Controller
 {
@@ -26,11 +27,29 @@ class ParticipantController extends Controller
     }
 
     /**
-     * @Route("/deconnexion", name="deconnexion")
+     * @Route("/", name="login")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function logoutAction(){
+    public function loginAction(AuthenticationUtils $authenticationUtils)
+    {
 
+        // Obtenir la dernière erreur d'authentification
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // Obtenir le dernier identifiant testé
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('participant/connexion.html.twig', [
+            'error' => $error,
+            'lastUsername' => $lastUsername,
+        ]);
     }
 
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
 
+    }
 }

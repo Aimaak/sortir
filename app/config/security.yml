@@ -2,12 +2,16 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         users_login:
             entity:
-                class: AppBundle\Entity\User #AppBundle:User
-                property: username
+                class: AppBundle\Entity\Participant #AppBundle:User
+                property: pseudo
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -17,24 +21,28 @@ security:
 
         main:
             pattern: ^/
-            anonymous: ~
-            provider : users_login
+            anonymous: true
+            provider: users_login
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
+
             form_login:
-                remember_me: true
+                login_path: /participant/login
+                check_path: /participant/login
+
+            logout:
+                path: /participant/logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
-#            form_login:
-#                login_path:/user/login
-#                check_path:/user/login
-#
-#            logout:
-#                path: /user/logout
-#                target:/
+            #form_login: ~
