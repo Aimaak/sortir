@@ -15,6 +15,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ParticipantController extends Controller
 {
+
+    /**
+     * @Route("/", name="accueil")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function accueilAction()
+    {
+        return $this->render("menu/accueil.html.twig");
+    }
+
     /**
      * @Route("/mon-profil", name="mon_profil")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -27,12 +37,11 @@ class ParticipantController extends Controller
     }
 
     /**
-     * @Route("/", name="login")
+     * @Route("/login", name="login")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(AuthenticationUtils $authenticationUtils)
     {
-
         // Obtenir la dernière erreur d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -50,6 +59,6 @@ class ParticipantController extends Controller
      */
     public function logoutAction()
     {
-
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 }

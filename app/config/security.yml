@@ -33,11 +33,12 @@ security:
                 #always_remember_me: true
 
             form_login:
-                login_path: /participant/login
-                check_path: /participant/login
+                login_path: /login
+                check_path: /login
+                default_target_path: /sortie
 
             logout:
-                path: /participant/logout
+                path: /logout
                 target: /
             # activate different ways to authenticate
 
