@@ -40,10 +40,6 @@
 {% endblock %}
 
 {% block recherche %}
-<<<<<<< HEAD
-=======
-    {{ dump(app.user) }}
->>>>>>> master
     <div class="col-lg-12">
         <table class="search">
             <tr>
@@ -67,7 +63,7 @@
                     {{ sortie.datecloture|date('d/m/Y') }}
                 </td>
                 <td>
-                    /{{ sortie.nbinscriptionsmax }}
+                    {{ sortie.nbinscriptionsmax }}
                 </td>
                 <td>
                     {{ sortie.etat }}
@@ -84,9 +80,5 @@
             {% endfor %}
         </table>
     </div>
-<<<<<<< HEAD
-    <input type="submit" value="Créer une sortie">
-=======
     <a href="{{ path('sortie_creerSortie') }}"><input type="submit" value="Créer une sortie"></a>
->>>>>>> master
 {% endblock %}

@@ -9,7 +9,11 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Participant;
+use AppBundle\Form\ParticipantType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -34,12 +38,26 @@ class ParticipantController extends Controller
     }
 
     /**
-     * @Route("/mon-profil", name="mon_profil")
+     * @Route("/mon-profil/{id}", name="mon_profil")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function myProfileAction()
+    public function myProfileAction(Request $request, EntityManagerInterface $entityManager, Participant $participant)
     {
-        return $this->render('participant/mon_profil.html.twig');
+        $form = $this->createForm(ParticipantType::class, $participant);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $participant = $form->getData();
+
+            $entityManager->persist($participant);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profil modifié !');
+            return $this->redirectToRoute('sortie_liste');
+        }
+
+        return $this->render('participant/mon_profil.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

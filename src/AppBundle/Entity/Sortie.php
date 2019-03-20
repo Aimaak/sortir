@@ -100,6 +100,11 @@ class Sortie
      */
     private $participants;
 
+    public function __toString()
+    {
+        return (string) $this->getOrganisateur();
+    }
+
     /**
      * Get id
      *
@@ -312,11 +317,6 @@ class Sortie
     {
         $this->etat = $etat;
         return $this;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->getOrganisateur();
     }
 
     /**

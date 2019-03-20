@@ -4,4 +4,6 @@
     <h1>Mon profil</h1>
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {{ form(form) }}
+    <a href="{{ path('sortie_liste') }}" class="btn btn-info">Annuler</a>
+
 {% endblock %}

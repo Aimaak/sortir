@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Sortie;
+
 /**
  * SortieRepository
  *
@@ -10,4 +12,14 @@ namespace AppBundle\Repository;
  */
 class SortieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSortiesBySite($site)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $queryBuilder->select(["sortie"])
+            ->from(Sortie::class, "sorties")
+            ->where("site.nom = $site");
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
