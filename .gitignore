@@ -15,4 +15,8 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+<<<<<<< refs/remotes/origin/develop
 /.idea/
+=======
+/.idea
+>>>>>>> mise à jour .gitignore
