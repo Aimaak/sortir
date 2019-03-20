@@ -2,7 +2,7 @@
 
 {% block maincontent %}
     <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
-    <h4 class="infosDroite">Participant : </h4>
+    <h4 class="infosDroite">Participant : {{ app.user.prenom }} {{  app.user.nom }}</h4>
     <h5>Filtrer les sorties</h5>
     <form method="post">
         <div class="row">
@@ -40,7 +40,6 @@
 {% endblock %}
 
 {% block recherche %}
-    {{ dump(sorties) }}
     <div class="col-lg-12">
         <table>
             <tr>
@@ -67,13 +66,13 @@
                     {{ sortie.nbinscriptionsmax }}
                 </td>
                 <td>
-
+                    {{ sortie.etat }}
                 </td>
                 <td>
 
                 </td>
                 <td>
-
+                    {{ sortie.organisateur }}
                 </td>
                 <td>
 

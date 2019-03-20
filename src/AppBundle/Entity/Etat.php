@@ -36,7 +36,7 @@ class Etat
 
     public function __toString()
     {
-        return (string) $this->getId();
+        return (string) $this->getLibelle();
     }
 
     /**

@@ -17,15 +17,6 @@ class ParticipantController extends Controller
 {
 
     /**
-     * @Route("/", name="accueil")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function accueilAction()
-    {
-        return $this->render("menu/accueil.html.twig");
-    }
-
-    /**
      * @Route("/mon-profil", name="mon_profil")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -37,7 +28,7 @@ class ParticipantController extends Controller
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/", name="login")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(AuthenticationUtils $authenticationUtils)

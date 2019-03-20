@@ -91,14 +91,14 @@ class Participant implements UserInterface
     private $sortiesOrganisees;
 
     /**
-     * @var
+     * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sortie", mappedBy="participants")
      */
     private $sorties;
 
     public function __toString()
     {
-        return (string) $this->getId();
+        return (string) $this->getPrenom(). " " .$this->getNom();
     }
 
     /**
