@@ -16,7 +16,11 @@
 /vendor/
 /web/bundles/
 <<<<<<< refs/remotes/origin/develop
+<<<<<<< refs/remotes/origin/develop
 /.idea/
 =======
 /.idea
 >>>>>>> mise à jour .gitignore
+=======
+/.idea/
+>>>>>>> maj
