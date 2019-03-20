@@ -2,7 +2,7 @@
 
 {% block maincontent %}
     <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
-    <h4 class="infosDroite">Participant : </h4>
+    <h4 class="infosDroite">Participant : {{ app.user.prenom }} {{  app.user.nom }}</h4>
     <h5>Filtrer les sorties</h5>
     <form method="post">
         <div class="row">
@@ -40,8 +40,12 @@
 {% endblock %}
 
 {% block recherche %}
+<<<<<<< HEAD
+=======
+    {{ dump(app.user) }}
+>>>>>>> master
     <div class="col-lg-12">
-        <table>
+        <table class="search">
             <tr>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
@@ -57,28 +61,32 @@
                     {{ sortie.nom }}
                 </td>
                 <td>
-                    {{ sortie.datedebut|date('d/m/Y') }}
+                    {{ sortie.datedebut|date('d/m/Y H\\Hi') }}
                 </td>
                 <td>
                     {{ sortie.datecloture|date('d/m/Y') }}
                 </td>
                 <td>
-                    {{ sortie.nbinscriptionsmax }}
+                    /{{ sortie.nbinscriptionsmax }}
                 </td>
                 <td>
-                    
-                </td>
-                <td>
-
+                    {{ sortie.etat }}
                 </td>
                 <td>
 
                 </td>
                 <td>
-
+                    <a href="{{ path('profil_participant', {'id': app.user.id}) }}">{{ sortie.organisateur }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                 </td>
             {% endfor %}
         </table>
     </div>
+<<<<<<< HEAD
     <input type="submit" value="Créer une sortie">
+=======
+    <a href="{{ path('sortie_creerSortie') }}"><input type="submit" value="Créer une sortie"></a>
+>>>>>>> master
 {% endblock %}

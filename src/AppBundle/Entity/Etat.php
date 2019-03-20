@@ -34,6 +34,11 @@ class Etat
      */
     private $sorties;
 
+    public function __toString()
+    {
+        return (string) $this->getLibelle();
+    }
+
     /**
      * Get id
      *

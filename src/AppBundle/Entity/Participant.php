@@ -91,11 +91,15 @@ class Participant implements UserInterface
     private $sortiesOrganisees;
 
     /**
-     * @var
+     * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sortie", mappedBy="participants")
      */
     private $sorties;
 
+    public function __toString()
+    {
+        return (string) $this->getPrenom(). " " .$this->getNom();
+    }
 
     /**
      * Get id
@@ -370,7 +374,7 @@ class Participant implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return array('ROLE_USER');
     }
 
     /**

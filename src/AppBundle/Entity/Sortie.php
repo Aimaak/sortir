@@ -95,7 +95,7 @@ class Sortie
     private $organisateur;
 
     /**
-     * @var
+     * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Participant", inversedBy="sorties")
      */
     private $participants;
@@ -314,12 +314,9 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function __toString()
     {
-        return (string) $this->etat;
+        return (string) $this->getOrganisateur();
     }
 
     /**

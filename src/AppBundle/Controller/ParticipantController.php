@@ -15,29 +15,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ParticipantController extends Controller
 {
-
     /**
-     * @Route("/", name="accueil")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function accueilAction()
-    {
-        return $this->render("menu/accueil.html.twig");
-    }
-
-    /**
-     * @Route("/mon-profil", name="mon_profil")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function myProfileAction()
-    {
-
-
-        return $this->render('participant/mon_profil.html.twig');
-    }
-
-    /**
-     * @Route("/login", name="login")
+     * @Route("/", name="login")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(AuthenticationUtils $authenticationUtils)
@@ -52,6 +31,24 @@ class ParticipantController extends Controller
             'error' => $error,
             'lastUsername' => $lastUsername,
         ]);
+    }
+
+    /**
+     * @Route("/mon-profil", name="mon_profil")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function myProfileAction()
+    {
+        return $this->render('participant/mon_profil.html.twig');
+    }
+
+    /**
+     * @Route("/profil-{id}", name="profil_participant")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function voirProfilAction()
+    {
+        return $this->render("participant/voir_profil.html.twig");
     }
 
     /**
