@@ -61,6 +61,11 @@ class Lieu
      */
     private $sorties;
 
+    public function __toString()
+    {
+        return (string) $this->getNomLieu();
+    }
+
     /**
      * Get id
      *

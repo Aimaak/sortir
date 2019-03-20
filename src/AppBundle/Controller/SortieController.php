@@ -11,8 +11,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
+use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,4 +41,44 @@ class SortieController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/detail-{id}", name="detailSortie")
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function voirSortieAction(EntityManagerInterface $em, $id)
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+
+        return $this->render("sortie/voir_sortie.html.twig", [
+            "sortie" => $sortie
+        ]);
+    }
+
+    /**
+     * @Route("/creer", name="creerSortie")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function creerSortieAction(Request $request, EntityManagerInterface $em)
+    {
+        $sortie = new Sortie();
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+
+        $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted()) {
+            $em->persist($sortie);
+            $em->flush();
+
+            $this->addFlash("success", "Idée enregistrée avec succès");
+            return $this->redirectToRoute("sortie_liste");
+        }
+
+        return $this->render("sortie/ajouter.html.twig", [
+            "form" => $sortieForm->createView(),
+        ]);
+
+    }
 }

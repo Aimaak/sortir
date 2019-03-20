@@ -40,6 +40,10 @@ class Site
      */
     private $participants;
 
+    public function __toString()
+    {
+        return (string) $this->getNomSite();
+    }
 
     /**
      * Get id
