@@ -96,6 +96,10 @@ class Participant implements UserInterface
      */
     private $sorties;
 
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
 
     /**
      * Get id
@@ -370,7 +374,7 @@ class Participant implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return array('ROLE_USER');
     }
 
     /**
