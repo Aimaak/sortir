@@ -3,14 +3,14 @@
 security:
 
     encoders:
-        AppBundle\Entity\User:
+        AppBundle\Entity\Participant:
             algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         users_login:
             entity:
-                class: AppBundle\Entity\Participant #AppBundle:User
+                class: AppBundle\Entity\Participant
                 property: pseudo
 
     firewalls:

@@ -13,7 +13,6 @@
 </head>
 <body>
 <main class="container">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <a class="navbar-brand" href="#">
             <header>
@@ -52,7 +51,11 @@
             <p>Contenu par défaut</p>
         {% endblock %}
     </section>
+    <section>
+        {% block recherche %}
 
+        {% endblock %}
+    </section>
 </main>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

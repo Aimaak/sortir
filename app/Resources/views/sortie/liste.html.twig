@@ -1,7 +1,6 @@
 {% extends "layout.html.twig" %}
 
 {% block maincontent %}
-    {{ dump(app.user) }}
     <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
     <h4 class="infosDroite">Participant : </h4>
     <h5>Filtrer les sorties</h5>
@@ -41,7 +40,45 @@
 {% endblock %}
 
 {% block recherche %}
+    {{ dump(sorties) }}
+    <div class="col-lg-12">
+        <table>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th>Inscrits/places</th>
+                <th>État</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
+            </tr>
+            {% for sortie in sorties %}
+                <td>
+                    {{ sortie.nom }}
+                </td>
+                <td>
+                    {{ sortie.datedebut|date('d/m/Y') }}
+                </td>
+                <td>
+                    {{ sortie.datecloture|date('d/m/Y') }}
+                </td>
+                <td>
+                    {{ sortie.nbinscriptionsmax }}
+                </td>
+                <td>
+                    
+                </td>
+                <td>
 
+                </td>
+                <td>
 
+                </td>
+                <td>
 
+                </td>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

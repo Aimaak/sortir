@@ -315,6 +315,14 @@ class Sortie
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->etat;
+    }
+
+    /**
      * @return mixed
      */
     public function getSite()
