@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -95,7 +96,7 @@ class Sortie
     private $organisateur;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Participant", inversedBy="sorties")
      */
     private $participants;
@@ -356,7 +357,7 @@ class Sortie
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection|Participant[]
      */
     public function getParticipants()
     {
@@ -364,7 +365,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $participants
+     * @param \Doctrine\Common\Collections\ArrayCollection $participants
      * @return Sortie
      */
     public function setParticipants($participants)
@@ -372,7 +373,6 @@ class Sortie
         $this->participants = $participants;
         return $this;
     }
-
 
 }
 

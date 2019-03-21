@@ -53,9 +53,12 @@ class SortieController extends Controller
     public function voirSortieAction(EntityManagerInterface $em, $id)
     {
         $sortie = $em->getRepository(Sortie::class)->find($id);
+        $participants = $sortie->getParticipants();
+        var_dump($participants);
 
         return $this->render("sortie/voir_sortie.html.twig", [
-            "sortie" => $sortie
+            "sortie" => $sortie,
+            "participants" => $participants
         ]);
     }
 

@@ -72,7 +72,7 @@ class VilleController extends Controller
      * @Route("/supprimer-{id}.html", name="supprimer")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function supprimerAction(Request $request, EntityManagerInterface $em, Ville $idea)
+    public function supprimerAction(Request $request, EntityManagerInterface $em, Ville $ville)
     {
         $formBuilder = $this->createFormBuilder();
         $formBuilder->add("Supprimer", SubmitType::class);
@@ -81,7 +81,7 @@ class VilleController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $em->remove($idea);
+            $em->remove($ville);
             $em->flush();
 
             $this->addFlash("success", "La ville a bien été supprimée");
