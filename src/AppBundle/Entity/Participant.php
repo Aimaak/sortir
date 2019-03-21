@@ -96,6 +96,16 @@ class Participant implements UserInterface
      */
     private $sorties;
 
+    /**
+     * @ORM\Column(name="roles", type="json_array")
+     */
+    private $roles = ['ROLE_USER'];
+
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt = "!F5e8V45";
+
     public function __toString()
     {
         return (string) $this->getPrenom(). " " .$this->getNom();
@@ -357,7 +367,6 @@ class Participant implements UserInterface
         return $this;
     }
 
-
     /**
      * Returns the roles granted to the user.
      *
@@ -374,7 +383,16 @@ class Participant implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     /**
@@ -399,7 +417,16 @@ class Participant implements UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return $this->salt;
+    }
+
+    /**
+     * @param mixed $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+        return $this;
     }
 
     /**
@@ -423,4 +450,3 @@ class Participant implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 }
-

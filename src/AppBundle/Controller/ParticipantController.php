@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ParticipantController extends Controller
@@ -43,13 +44,17 @@ class ParticipantController extends Controller
      * @Route("/mon-profil/{id}", name="mon_profil")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function myProfileAction(Request $request, EntityManagerInterface $em, Participant $participant)
+    public function myProfileAction(Request $request, EntityManagerInterface $em, Participant $participant, UserPasswordEncoderInterface $passwordEncoder)
     {
         $form = $this->createForm(ParticipantType::class, $participant);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
+
+            $toSavePassword = $passwordEncoder->encodePassword($participant, $participant->getPassword());
+            $participant->setMotdepasse($toSavePassword);
+
             $em->persist($participant);
             $em->flush();
 
