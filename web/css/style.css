@@ -10,24 +10,22 @@
     font-style: normal;
 }
 
-#about-us
- {
-     max-width: 80%;
-     height: auto;
- }
+#about-us {
+    max-width: 80%;
+    height: auto;
+}
 
-#bl
-{
+#bl {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 400px;
 }
 
-#us
-{
+#us {
     float: left;
 }
+
 div.gallery {
     border: 1px solid #ccc;
 }
@@ -75,14 +73,13 @@ div.desc {
     display: table;
     clear: both;
 }
-section
-{
+
+section {
     display: flex;
     padding: 30px;
 }
 
-footer
-{
+footer {
     clear: both;
     display: flex;
     justify-content: center;
@@ -95,9 +92,88 @@ footer
     box-shadow: 10px 10px 15px black;
 }
 
-#navbarSupportedContent
-{
+#navbarSupportedContent {
     text-align: right;
 }
 
+#alert {
+    position: relative;
+}
 
+#alert:hover:after {
+    background: hsla(0, 0%, 0%, .8);
+    border-radius: 3px;
+    color: #f6f6f6;
+    content: 'Click to dismiss';
+    font: bold 12px/30px sans-serif;
+    height: 30px;
+    left: 50%;
+    margin-left: -60px;
+    position: absolute;
+    text-align: center;
+    top: 50px;
+    width: 120px;
+}
+
+#alert:hover:before {
+    border-bottom: 10px solid hsla(0, 0%, 0%, .8);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: '';
+    height: 0;
+    left: 50%;
+    margin-left: -10px;
+    position: absolute;
+    top: 40px;
+    width: 0;
+}
+
+#alert:target {
+    display: none;
+}
+
+.alert-error {
+    animation: alert 1s ease forwards;
+    background-color: #c4453c;
+    background-image: linear-gradient(135deg, transparent, transparent 25%, hsla(0, 0%, 0%, .1) 25%, hsla(0, 0%, 0%, .1) 50%, transparent 50%, transparent 75%, hsla(0, 0%, 0%, .1) 75%, hsla(0, 0%, 0%, .1));
+    background-size: 20px 20px;
+    box-shadow: 0 5px 0 hsla(0, 0%, 0%, .1);
+    color: #f6f6f6;
+    display: block;
+    font: bold 16px/40px sans-serif;
+    height: 40px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: -45px;
+    width: 100%;
+}
+
+.alert-success {
+    animation: alert 1s ease forwards;
+    background-color: green;
+    background-image: linear-gradient(135deg, transparent, transparent 25%, hsla(0, 0%, 0%, .1) 25%, hsla(0, 0%, 0%, .1) 50%, transparent 50%, transparent 75%, hsla(0, 0%, 0%, .1) 75%, hsla(0, 0%, 0%, .1));
+    background-size: 20px 20px;
+    box-shadow: 0 5px 0 hsla(0, 0%, 0%, .1);
+    color: #f6f6f6;
+    display: block;
+    font: bold 16px/40px sans-serif;
+    height: 40px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: -45px;
+    width: 100%;
+}
+
+@keyframes alert {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        top: 0;
+    }
+}

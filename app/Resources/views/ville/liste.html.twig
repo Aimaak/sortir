@@ -5,20 +5,20 @@
 
     <h5>Filtrer les villes</h5>
 
-    <form method="post">
+    <form class="pure-form pure-form-aligned" method="post">
         <label for="nom">Le nom contient : </label>
         <input type="search">
-        <input type="submit" value="Rechercher">
+        <input type="submit" class="pure-button pure-button-primary" value="Rechercher">
     </form>
 
-    <table>
-        <tr>
+    <table class="pure-table">
+        <tr class="pure-table-odd">
             <th>Ville</th>
             <th>Code postal</th>
             <th>Actions</th>
         </tr>
         {% for ville in villes %}
-            <tr>
+            <tr class="pure-table-odd">
                 <td>
                     {{ ville.nomVille }}
                 </td>
@@ -30,7 +30,7 @@
                 </td>
             </tr>
         {% endfor %}
-        <tr>
+        <tr class="pure-table-odd">
             <td>
                 <input type="text">
             </td>

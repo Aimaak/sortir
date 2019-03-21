@@ -3,25 +3,26 @@
 {% block maincontent %}
 
     {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messagekey|trans(error.messageData, 'security') }}
+        <div class="alert">
+            <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
         </div>
     {% endif %}
 
-    <form method="post">
-        <div class="form-group">
+    <form class="pure-form" method="post">
+        <div class="pure-control-group">
             <label for="_username">Pseudo</label>
             <input type="text" class="form-control" id="_username" name="_username" value="{{ lastUsername }}">
         </div>
-        <div class="form-group">
+        <div class="pure-control-group">
             <label for="_password">Mot de passe</label>
             <input type="password" class="form-control" id="_password" name="_password">
         </div>
-        <div>
-            <input type="checkbox" id="remember_me" name="_remember_me" checked/>
-            <label for="remember_me">Se souvenir de moi</label>
+        <div class="pure-controls">
+            <label for="remember_me" class="pure-checkbox">
+                <input type="checkbox" id="remember_me" name="_remember_me" checked> Se souvenir de moi
+            </label>
+            <input type="submit" class="pure-button pure-button-primary">Valider</input>
         </div>
-        <button type="submit">Valider</button>
     </form>
 
 {% endblock %}

@@ -9,68 +9,57 @@
     {#<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">#}
     {#<link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="img/png">#}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<main class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-        <a class="navbar-brand" href="{{ path('sortie_liste') }}">
-            <header>
-                {#<img src="{{ asset('img/logo.png') }}" alt="">#}
-                <h1>Sortir.com</h1>
-            </header>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="pure-menu pure-menu-horizontal">
+    <a class="pure-menu-heading pure-menu-link" href="{{ path('sortie_liste') }}">
+        <header>
+            {#<img src="{{ asset('img/logo.png') }}" alt="">#}
+            <h1>Sortir.com</h1>
+        </header>
+    </a>
+    <ul class="pure-menu-list">
+        {% if is_granted("ROLE_ADMIN") %}
+            <li class="pure-menu-item">
+                <a class="pure-menu-link" href="{{ path('ville_liste') }}">Villes</a>
+            </li>
+            <li class="pure-menu-item">
+                <a class="pure-menu-link" href="{{ path('site_liste') }}">Sites</a>
+            </li>
+        {% endif %}
+        <li class="pure-menu-item">
+            <a class="pure-menu-link" href="{{ path('sortie_liste') }}">Accueil</a>
+        </li>
+        <li class="pure-menu-item">
+            {% if app.user %}
+                <a class="pure-menu-link" href="{{ path('mon_profil', {"id":app.user.id}) }}">Mon Profil</a>
+            {% endif %}
+        </li>
+        <li class="pure-menu-item">
+            <a class="pure-menu-link" href="{{ path('logout') }}">Se Déconnecter</a>
+        </li>
+    </ul>
+</div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {% if is_granted("ROLE_ADMIN") %}
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('ville_liste') }}">Villes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('site_liste') }}">Sites</a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('sortie_liste') }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    {% if app.user %}
-                        <a class="nav-link active" href="{{ path('mon_profil', {"id":app.user.id}) }}">Mon Profil</a>
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('logout') }}">Se Déconnecter</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<section>
+    {% block maincontent %}
 
-    <section>
-        {% block maincontent %}
+    {% endblock %}
+</section>
+<section>
+    {% block recherche %}
 
-        {% endblock %}
-    </section>
-    <section>
-        {% block recherche %}
+    {% endblock %}
+</section>
 
-        {% endblock %}
-    </section>
-</main>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+<script src="{{ asset('js/triSorties.js') }}"></script>
 </body>
 </html>
