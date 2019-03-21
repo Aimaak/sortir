@@ -57,7 +57,11 @@ class ParticipantController extends Controller
             $toSavePassword = $passwordEncoder->encodePassword($participant, $participant->getPassword());
             $participant->setMotdepasse($toSavePassword);
             $participant->setRoles(['ROLE_USER']);
+<<<<<<< HEAD
             $participant->setSalt('!F5e8V45');
+=======
+            $participant->setSalt("!F5e8V45");
+>>>>>>> develop
 
             $em->persist($participant);
             $em->flush();

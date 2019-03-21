@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+{% block maincontent %}
+    <h1>Gérer les villes</h1>
+
+    <h5>Filtrer les villes</h5>
+
+    <form method="post">
+        <label for="nom">Le nom contient : </label>
+        <input type="search">
+        <input type="submit" value="Rechercher">
+    </form>
+
+    <table>
+        <tr>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Actions</th>
+        </tr>
+        {% for ville in villes %}
+            <tr>
+                <td>
+                    {{ ville.nomVille }}
+                </td>
+                <td>
+                    {{ ville.codePostal }}
+                </td>
+                <td>
+                    <a href="{{ path('ville_modifier', {"id" : ville.id}) }}">Modifier</a> - <a href="{{ path('ville_supprimer', {"id" : ville.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <input type="text">
+            </td>
+            <td>
+                <input type="text">
+            </td>
+            <td>
+                <a href="{{ path('ville_ajouter') }}">Ajouter</a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
