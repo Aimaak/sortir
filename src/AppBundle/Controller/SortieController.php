@@ -72,13 +72,26 @@ class SortieController extends Controller
 
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
-            $em->persist($sortie);
-            $em->flush();
+            if($sortieForm->get('enregistrer')->isClicked()){
+                $sortie->setEtat('Créée');
+                $em->persist($sortie);
+                $em->flush();
 
-            $this->addFlash("success", "Idée enregistrée avec succès");
-            return $this->redirectToRoute("sortie_liste");
+                $this->addFlash("success", "Sortie enregistrée avec succès");
+                return $this->redirectToRoute("sortie_liste");
+            }
+            else
+                {
+                $sortie->setEtat('Ouvert');
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash("success", "Sortie publiée avec succès");
+                return $this->redirectToRoute("sortie_liste");
+            }
+
         }
 
         return $this->render("sortie/ajouter.html.twig", [
