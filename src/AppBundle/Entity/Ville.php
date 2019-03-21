@@ -41,6 +41,11 @@ class Ville
      */
     private $lieux;
 
+    public function __toString()
+    {
+        return (string) $this->getNomVille();
+    }
+
     /**
      * Get id
      *

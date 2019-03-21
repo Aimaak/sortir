@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use AppBundle\Form\SortieType;
@@ -34,16 +35,19 @@ class SortieController extends Controller
     {
         $sites = $em->getRepository(Site::class)->findAll();
         $sorties = $em->getRepository(Sortie::class)->findAll();
+        $participants = $em->getRepository(Participant::class)->findAll();
 
         return $this->render('sortie/liste.html.twig', [
             "sorties" => $sorties,
-            "sites" => $sites
+            "sites" => $sites,
+            "participants" => $participants
         ]);
     }
 
     /**
      * @Route("/detail-{id}", name="detailSortie")
      * @param EntityManagerInterface $em
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function voirSortieAction(EntityManagerInterface $em, $id)
@@ -69,6 +73,7 @@ class SortieController extends Controller
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted()) {
+
             $em->persist($sortie);
             $em->flush();
 

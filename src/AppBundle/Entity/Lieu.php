@@ -66,6 +66,7 @@ class Lieu
         return (string) $this->getNomLieu();
     }
 
+
     /**
      * Get id
      *
