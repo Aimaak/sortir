@@ -38,18 +38,20 @@ class ParticipantController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
      * @Route("/mon-profil/{id}", name="mon_profil")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function myProfileAction(Request $request, EntityManagerInterface $entityManager, Participant $participant)
+    public function myProfileAction(Request $request, EntityManagerInterface $em, Participant $participant)
     {
         $form = $this->createForm(ParticipantType::class, $participant);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $participant = $form->getData();
+        $form->handleRequest($request);
 
-            $entityManager->persist($participant);
-            $entityManager->flush();
+        if($form->isSubmitted()){
+            $em->persist($participant);
+            $em->flush();
 
             $this->addFlash('success', 'Profil modifié !');
             return $this->redirectToRoute('sortie_liste');

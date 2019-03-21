@@ -1,6 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block maincontent %}
+    {% for message in app.flashes("success") %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
     <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
     <h4 class="infosDroite">Participant : {{ app.user.prenom }} {{  app.user.nom }}</h4>
     <h5>Filtrer les sorties</h5>
