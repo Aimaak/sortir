@@ -57,35 +57,6 @@
             </tr>
             {% for sortie in sorties %}
                 <tr>
-<<<<<<< HEAD
-                <td>
-                    {{ sortie.nom }}
-                </td>
-                <td>
-                    {{ sortie.datedebut|date('d/m/Y H\\Hi') }}
-                </td>
-                <td>
-                    {{ sortie.datecloture|date('d/m/Y') }}
-                </td>
-                <td>
-                    {{ sortie.nbinscriptionsmax }}
-                </td>
-                <td>
-                    {{ sortie.etat }}
-                </td>
-                <td>
-
-                </td>
-
-                <td>
-
-                    <a href="{{ path('profil_participant', {"id": sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
-
-                </td>
-                <td>
-                    <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
-                </td>
-=======
                     <td>
                         {{ sortie.nom }}
                     </td>
@@ -110,7 +81,6 @@
                     <td>
                         <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                     </td>
->>>>>>> develop
                 </tr>
             {% endfor %}
         </table>

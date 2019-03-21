@@ -47,6 +47,7 @@ class SortieController extends Controller
     /**
      * @Route("/detail-{id}", name="detailSortie")
      * @param EntityManagerInterface $em
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function voirSortieAction(EntityManagerInterface $em, $id)

@@ -2,39 +2,44 @@
 
 {% block maincontent %}
     <h1>{{ participant.pseudo }}</h1>
+>
+
+    <form>
+        <div class="form-group row">
+            <label for="staticPrenom" class="col-sm-2 col-form-label">Prénom : </label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticPrenom" value="{{ participant.prenom }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticNom" class="col-sm-2 col-form-label">Nom : </label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticNom" value="{{ participant.nom }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticTel" class="col-sm-2 col-form-label">Téléphone : </label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticTel" value="{{ participant.telephone }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email : </label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ participant.mail }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticVilleRattachement" class="col-sm-2 col-form-label">Ville de rattachement : </label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticVilleRattachement" value="{{ participant.site }} minutes">
+            </div>
+        </div>
+    </form>
 
     <div>
-    <tr>
-        <th>Prénom : </th>
-        <th>{{ participant.prenom }}</th>
-    </tr>
+        <<a href="{{ path('sortie_liste') }}" class="btn btn-info">Retour</a>
     </div>
-<div>
-    <tr>
-        <th>Nom : </th>
-        <th>{{ participant.nom }}</th>
-    </tr>
-</div>
-    <div>
-    <tr>
-        <th>Téléphone : </th>
-        <th>{{ participant.telephone }}</th>
-    </tr>
-    </div>
-    <div>
-    <tr>
-        <th>Email : </th>
-        <th>{{ participant.mail }}</th>
-    </tr>
-    </div>
-    <div>
-    <tr>
-        <th>Ville de rattachement : </th>
-        <th>{{ participant.site }}</th>
-    </tr>
-    </div>
-    <div>
-    <<a href="{{ path('sortie_liste') }}" class="btn btn-info">Retour</a>
-    </div>
+
 {% endblock %}
 
