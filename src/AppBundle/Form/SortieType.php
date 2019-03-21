@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Participant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -30,7 +31,9 @@ class SortieType extends AbstractType
             ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
             ->add("enregistrer", SubmitType::class)
             ->add("Publier la sortie", SubmitType::class)
-            ->add("Annuler", SubmitType::class);
+            ->add("Annuler", SubmitType::class)
+            ->add('Etat', EntityType::class, ["class" => "AppBundle\Entity\Etat"])
+            ->add('Organisateur', EntityType::class, ["class" => "AppBundle\Entity\Participant"]);
     }
 
     /**

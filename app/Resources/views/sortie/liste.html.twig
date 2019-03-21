@@ -56,6 +56,7 @@
                 <th>Actions</th>
             </tr>
             {% for sortie in sorties %}
+                <tr>
                 <td>
                     {{ sortie.nom }}
                 </td>
@@ -74,12 +75,16 @@
                 <td>
 
                 </td>
+
                 <td>
-                    <a href="{{ path('profil_participant', {'id': app.user.id}) }}">{{ sortie.organisateur }}</a>
+
+                    <a href="{{ path('profil_participant', {"id": sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
+
                 </td>
                 <td>
                     <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                 </td>
+                </tr>
             {% endfor %}
         </table>
     </div>

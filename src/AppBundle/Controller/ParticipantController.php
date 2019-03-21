@@ -41,8 +41,10 @@ class ParticipantController extends Controller
     /**
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @Route("/mon-profil/{id}", name="mon_profil")
+     * @param Participant $participant
+     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/mon-profil/{id}", name="mon_profil")
      */
     public function myProfileAction(Request $request, EntityManagerInterface $em, Participant $participant, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -54,6 +56,8 @@ class ParticipantController extends Controller
 
             $toSavePassword = $passwordEncoder->encodePassword($participant, $participant->getPassword());
             $participant->setMotdepasse($toSavePassword);
+            $participant->setRoles(['ROLE_USER']);
+            $participant->setSalt('!F5e8V45');
 
             $em->persist($participant);
             $em->flush();
@@ -69,11 +73,22 @@ class ParticipantController extends Controller
 
     /**
      * @Route("/profil-{id}", name="profil_participant")
+     * @param $id
+     * @param EntityManagerInterface $entityManager
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirProfilAction()
+    public function voirProfilAction($id, EntityManagerInterface $entityManager)
     {
-        return $this->render("participant/voir_profil.html.twig");
+        $repoParticipants = $entityManager->getRepository(Participant::class);
+        $participant = $repoParticipants->find($id);
+
+        if(empty($participant)){
+            throw $this->createNotFoundException('Participant inconnu !');
+        }
+
+        return $this->render("participant/voir_profil.html.twig", [
+            'participant' => $participant
+        ]);
     }
 
     /**

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use AppBundle\Form\SortieType;
@@ -34,10 +35,12 @@ class SortieController extends Controller
     {
         $sites = $em->getRepository(Site::class)->findAll();
         $sorties = $em->getRepository(Sortie::class)->findAll();
+        $participants = $em->getRepository(Participant::class)->findAll();
 
         return $this->render('sortie/liste.html.twig', [
             "sorties" => $sorties,
-            "sites" => $sites
+            "sites" => $sites,
+            "participants" => $participants
         ]);
     }
 
@@ -69,6 +72,7 @@ class SortieController extends Controller
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted()) {
+
             $em->persist($sortie);
             $em->flush();
 

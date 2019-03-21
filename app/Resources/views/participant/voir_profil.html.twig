@@ -1,6 +1,40 @@
 {% extends 'layout.html.twig' %}
 
 {% block maincontent %}
+    <h1>{{ participant.pseudo }}</h1>
 
+    <div>
+    <tr>
+        <th>Prénom : </th>
+        <th>{{ participant.prenom }}</th>
+    </tr>
+    </div>
+<div>
+    <tr>
+        <th>Nom : </th>
+        <th>{{ participant.nom }}</th>
+    </tr>
+</div>
+    <div>
+    <tr>
+        <th>Téléphone : </th>
+        <th>{{ participant.telephone }}</th>
+    </tr>
+    </div>
+    <div>
+    <tr>
+        <th>Email : </th>
+        <th>{{ participant.mail }}</th>
+    </tr>
+    </div>
+    <div>
+    <tr>
+        <th>Ville de rattachement : </th>
+        <th>{{ participant.site }}</th>
+    </tr>
+    </div>
+    <div>
+    <<a href="{{ path('sortie_liste') }}" class="btn btn-info">Retour</a>
+    </div>
 {% endblock %}
 
