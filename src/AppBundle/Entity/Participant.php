@@ -60,7 +60,7 @@ class Participant implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="motdepasse", type="string", length=20)
+     * @ORM\Column(name="motdepasse", type="string", length=255)
      */
     private $motdepasse;
 
@@ -99,12 +99,12 @@ class Participant implements UserInterface
     /**
      * @ORM\Column(name="roles", type="json_array")
      */
-    private $roles = ['ROLE_USER'];
+    private $roles;
 
     /**
      * @ORM\Column(name="salt", type="string", length=255)
      */
-    private $salt = "!F5e8V45";
+    private $salt;
 
     public function __toString()
     {

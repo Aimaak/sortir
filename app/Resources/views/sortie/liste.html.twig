@@ -5,7 +5,7 @@
         <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
     <h4 class="infosDroite">Date du jour : {{ "now"|date("d/m/Y") }}</h4>
-    <h4 class="infosDroite">Participant : {{ app.user.prenom }} {{  app.user.nom }}</h4>
+    <h4 class="infosDroite">Participant : {{ app.user.prenom }} {{ app.user.nom }}</h4>
     <h5>Filtrer les sorties</h5>
     <form method="post">
         <div class="row">
@@ -56,30 +56,32 @@
                 <th>Actions</th>
             </tr>
             {% for sortie in sorties %}
-                <td>
-                    {{ sortie.nom }}
-                </td>
-                <td>
-                    {{ sortie.datedebut|date('d/m/Y H\\Hi') }}
-                </td>
-                <td>
-                    {{ sortie.datecloture|date('d/m/Y') }}
-                </td>
-                <td>
-                    {{ sortie.nbinscriptionsmax }}
-                </td>
-                <td>
-                    {{ sortie.etat }}
-                </td>
-                <td>
+                <tr>
+                    <td>
+                        {{ sortie.nom }}
+                    </td>
+                    <td>
+                        {{ sortie.datedebut|date('d/m/Y H\\Hi') }}
+                    </td>
+                    <td>
+                        {{ sortie.datecloture|date('d/m/Y') }}
+                    </td>
+                    <td>
+                        {{ sortie.nbinscriptionsmax }}
+                    </td>
+                    <td>
+                        {{ sortie.etat }}
+                    </td>
+                    <td>
 
-                </td>
-                <td>
-                    <a href="{{ path('profil_participant', {'id': app.user.id}) }}">{{ sortie.organisateur }}</a>
-                </td>
-                <td>
-                    <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
-                </td>
+                    </td>
+                    <td>
+                        <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    </td>
+                </tr>
             {% endfor %}
         </table>
     </div>

@@ -47,7 +47,13 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
     access_control:
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
-        - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sortie, roles: ROLE_USER }
+        - { path: ^/mon-profil, roles: ROLE_USER }
+        - { path: ^/profil-, roles: ROLE_USER }
+        - { path: ^/ville, roles: ROLE_ADMIN }
+        - { path: ^/site, roles: ROLE_ADMIN }
