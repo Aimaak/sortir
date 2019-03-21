@@ -93,6 +93,22 @@
             </div>
         </form>
     </section>
-
+    <h3>Liste des participants inscrits :</h3>
+    <table class="pure-table">
+        <tr class="pure-table-odd">
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        {% for participant in sortie.participants %}
+            <tr class="pure-table-odd">
+                <td>
+                    {{ participant.nom }}
+                </td>
+                <td>
+                    {{ participant.prenom }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
 

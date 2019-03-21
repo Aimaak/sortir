@@ -1,5 +1,39 @@
 {% extends "layout.html.twig" %}
 
 {% block maincontent %}
+    <h1>Gérer les sites</h1>
 
+    <h5>Filtrer les sites</h5>
+
+    <form class="pure-form pure-form-aligned" method="post">
+        <label for="nom">Le nom contient : </label>
+        <input type="search">
+        <input type="submit" class="pure-button pure-button-primary" value="Rechercher">
+    </form>
+
+    <table class="pure-table">
+        <tr class="pure-table-odd">
+            <th>Ville</th>
+            <th>Actions</th>
+        </tr>
+        {% for site in sites %}
+            <tr class="pure-table-odd">
+                <td>
+                    {{ site.nomSite | upper }}
+                </td>
+                <td>
+                    <a href="{{ path('site_modifier', {"id" : site.id}) }}">Modifier</a> - <a
+                            href="{{ path('site_supprimer', {"id" : site.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr class="pure-table-odd">
+            <td>
+                <input type="text">
+            </td>
+            <td>
+                <a href="{{ path('site_ajouter') }}">Ajouter</a>
+            </td>
+        </tr>
+    </table>
 {% endblock %}

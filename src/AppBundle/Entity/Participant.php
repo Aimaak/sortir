@@ -79,19 +79,16 @@ class Participant implements UserInterface
     private $actif;
 
     /**
-     * @var
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="participants")
      */
     private $site;
 
     /**
-     * @var
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sortie", mappedBy="organisateur")
      */
     private $sortiesOrganisees;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sortie", mappedBy="participants")
      */
     private $sorties;
