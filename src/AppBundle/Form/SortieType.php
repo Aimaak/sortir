@@ -29,10 +29,9 @@ class SortieType extends AbstractType
             ->add('descriptioninfos', TextareaType::class)
             ->add('lieu', EntityType::class, ["class" => "AppBundle\Entity\Lieu"])
             ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
-            ->add('Etat', EntityType::class, ["class" => "AppBundle\Entity\Etat"])
-            ->add('Organisateur', EntityType::class, ["class" => "AppBundle\Entity\Participant"])
             ->add("enregistrer", SubmitType::class)
-            ->add("Publier la sortie", SubmitType::class);
+            ->add("Publier la sortie", SubmitType::class)
+            ->add('Supprimer la sortie', SubmitType::class);
 
     }
 

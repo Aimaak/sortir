@@ -9,12 +9,14 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Etat;
 use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -54,7 +56,7 @@ class SortieController extends Controller
     {
         $sortie = $em->getRepository(Sortie::class)->find($id);
         $participants = $sortie->getParticipants();
-        var_dump($participants);
+
 
         return $this->render("sortie/voir_sortie.html.twig", [
             "sortie" => $sortie,
@@ -72,22 +74,22 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-
+        $sortieForm -> remove('Supprimer la sortie');
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+            $sortie->setOrganisateur($this->getUser());
 
-            if($sortieForm->get('enregistrer')->isClicked()){
-                $sortie->setEtat('Créée');
+            if ($sortieForm->get('enregistrer')->isClicked()) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(1));
                 $em->persist($sortie);
                 $em->flush();
 
                 $this->addFlash("success", "Sortie enregistrée avec succès");
                 return $this->redirectToRoute("sortie_liste");
-            }
-            else
-                {
-                $sortie->setEtat('Ouvert');
+            } else {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(2));
                 $em->persist($sortie);
                 $em->flush();
 
@@ -101,5 +103,58 @@ class SortieController extends Controller
             "form" => $sortieForm->createView(),
         ]);
 
+    }
+
+    /**
+     * @Route("/modifier-{id}", name="modifierSortie")
+     * @param Sortie $sortie
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function modifierSortieAction(Sortie $sortie, Request $request, EntityManagerInterface $em, $id)
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+
+        $sortieForm->handleRequest($request);
+
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
+        {
+
+            $sortie->setOrganisateur($this->getUser());
+
+
+            if ($sortieForm->get('enregistrer')->isClicked()) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(1));
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash("success", "Sortie enregistrée avec succès");
+                return $this->redirectToRoute("sortie_liste");
+            }
+            elseif ($sortieForm->get('Publier la sortie')->isClicked())
+            {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(2));
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash("success", "Sortie publiée avec succès");
+                return $this->redirectToRoute("sortie_liste");
+            }
+            else
+            {
+
+                    $em->remove($sortie);
+                    $em->flush();
+
+                    $this->addFlash('success', 'Sortie supprimée avec succès');
+                    return $this->redirectToRoute("sortie_liste");
+            }
+
+        }
+        return $this->render("sortie/modifier.html.twig", [
+            "form" => $sortieForm->createView(),
+        ]);
     }
 }
