@@ -7,11 +7,11 @@
 
     <form class="pure-form pure-form-aligned" method="post">
         <label for="nom">Le nom contient : </label>
-        <input type="search">
+        <input type="search" id="nom" onkeyup="rechercheNom()">
         <input type="submit" class="pure-button pure-button-primary" value="Rechercher">
     </form>
 
-    <table class="pure-table">
+    <table class="pure-table" id="tab">
         <tr class="pure-table-odd">
             <th>Ville</th>
             <th>Actions</th>
