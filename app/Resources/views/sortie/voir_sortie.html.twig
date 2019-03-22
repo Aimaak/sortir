@@ -102,10 +102,10 @@
         {% for participant in sortie.participants %}
             <tr class="pure-table-odd">
                 <td>
-                    {{ participant.nom }}
+                    {{ participant.pseudo }}
                 </td>
                 <td>
-                    {{ participant.prenom }}
+                    {{ participant.prenom }} {{ participant.nom }}
                 </td>
             </tr>
         {% endfor %}

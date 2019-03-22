@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block maincontent %}
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            {{ competition.titre }}
+            <!-- Il faut préciser l'action dans le formulaire -->
+            {{ form_start(form, {'action': path('sortie_liste', { 'id': sorties.id })}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+        </div>
+        <div class="modal-footer">
+
+        </div>
+    </div>
+
+{% endblock %}
+

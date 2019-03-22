@@ -14,6 +14,7 @@ use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use AppBundle\Form\SortieType;
+use AppBundle\Form\ValidationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -157,4 +158,5 @@ class SortieController extends Controller
             "form" => $sortieForm->createView(),
         ]);
     }
+
 }
