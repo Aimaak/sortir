@@ -17,7 +17,6 @@ use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,7 +33,7 @@ class SortieController extends Controller
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listeAction(EntityManagerInterface $em)
+    public function listeAction(EntityManagerInterface $em, Request $request)
     {
         $id = $this->getUser()->getId();
         $sites = $em->getRepository(Site::class)->findAll();
@@ -42,13 +41,18 @@ class SortieController extends Controller
         $participants = $em->getRepository(Participant::class)->findAll();
         $mesSorties = $em->getRepository(Sortie::class)->getSortiesOrganisateur($id);
         $sortiesPassees = $em->getRepository(Sortie::class)->getSortiesPassees();
+        //$sortiesInscrit = $em->getRepository(Sortie::class)->getSortiesInscrit($id);
+
+        $filtreInscrit = $request->get("filtreInscrit");
+        $filtreNonInscrit = $request->get("filtreNonInscrit");
 
         return $this->render('sortie/liste.html.twig', [
             "sorties" => $sorties,
             "sites" => $sites,
             "participants" => $participants,
             "mesSorties" => $mesSorties,
-            "sortiesPassees" => $sortiesPassees
+            "sortiesPassees" => $sortiesPassees,
+            //"sortiesInscrit" => $sortiesInscrit
         ]);
     }
 

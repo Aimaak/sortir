@@ -105,7 +105,7 @@ class Participant implements UserInterface
 
     public function __toString()
     {
-        return (string) $this->getPrenom(). " " .$this->getNom();
+        return (string)$this->getPrenom() . " " . $this->getNom();
     }
 
     /**

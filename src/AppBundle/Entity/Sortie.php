@@ -98,12 +98,15 @@ class Sortie
     /**
      * @var
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Participant", inversedBy="sorties")
+     * @ORM\JoinTable(name="inscriptions", joinColumns={@ORM\JoinColumn(name="sorties_no_sortie", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="participants_no_participant", referencedColumnName="id")}
+     *      ))
      */
     private $participants;
 
     public function __toString()
     {
-        return (string) $this->getOrganisateur();
+        return (string)$this->getOrganisateur();
     }
 
     /**
@@ -347,17 +350,7 @@ class Sortie
     }
 
     /**
-     * @param mixed $organisateur
-     * @return Sortie
-     */
-    public function setOrganisateur($organisateur)
-    {
-        $this->organisateur = $organisateur;
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection|Participant[]
+     * @return mixed
      */
     public function getParticipants()
     {
@@ -365,7 +358,7 @@ class Sortie
     }
 
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $participants
+     * @param mixed $participants
      * @return Sortie
      */
     public function setParticipants($participants)
@@ -373,6 +366,17 @@ class Sortie
         $this->participants = $participants;
         return $this;
     }
+
+    /**
+     * @param mixed $sorties_no_sortie
+     * @return Sortie
+     */
+    public function setSortiesNoSortie($sorties_no_sortie)
+    {
+        $this->sorties_no_sortie = $sorties_no_sortie;
+        return $this;
+    }
+
 
 }
 

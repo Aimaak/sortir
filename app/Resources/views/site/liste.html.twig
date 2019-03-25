@@ -31,13 +31,15 @@
             </tr>
         {% endfor %}
         </tbody>
+        <form method="post">
         <tr class="pure-table-odd">
             <td>
-                <input type="text">
+                <input type="text" name="nomSite">
             </td>
             <td>
-                <a href="{{ path('site_ajouter') }}">Ajouter</a>
+                <input type="submit" class="submitSearch pure-button pure-button-primary" value="Ajouter">
             </td>
         </tr>
+        </form>
     </table>
 {% endblock %}

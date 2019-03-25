@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Sortie;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * SortieRepository
@@ -32,6 +33,18 @@ class SortieRepository extends \Doctrine\ORM\EntityRepository
             ->from(Sortie::class, "sorties")
             ->where("sorties.datedebut <= :today")
             ->setParameter('today', $today->format('Y-m-d'));
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getSortiesInscrit($idUser)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $queryBuilder->select("sorties")
+            ->from(Sortie::class, "s")
+            ->innerJoin("s.inscriptions", "i", Expr\Join::ON, "s.id = i.sorties_no_sortie")
+            ->where("i.partipants_no_participant = $idUser");
 
         return $queryBuilder->getQuery()->getResult();
     }
