@@ -31,8 +31,18 @@ class VilleController extends Controller
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listeAction(EntityManagerInterface $em)
+    public function listeAction(EntityManagerInterface $em, Request $request)
     {
+        if (!empty($request->get("codePostal")) && !empty($request->get("nomVille"))) {
+            $ville = new Ville();
+
+            $ville->setCodePostal($request->get("codePostal"));
+            $ville->setNomVille($request->get("nomVille"));
+
+            $em->persist($ville);
+            $em->flush();
+        }
+
         $villes = $em->getRepository(Ville::class)->findAll();
 
         return $this->render("ville/liste.html.twig", [
