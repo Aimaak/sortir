@@ -17,6 +17,7 @@ use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,14 +36,19 @@ class SortieController extends Controller
      */
     public function listeAction(EntityManagerInterface $em)
     {
+        $id = $this->getUser()->getId();
         $sites = $em->getRepository(Site::class)->findAll();
         $sorties = $em->getRepository(Sortie::class)->findAll();
         $participants = $em->getRepository(Participant::class)->findAll();
+        $mesSorties = $em->getRepository(Sortie::class)->getSortiesOrganisateur($id);
+        $sortiesPassees = $em->getRepository(Sortie::class)->getSortiesPassees();
 
         return $this->render('sortie/liste.html.twig', [
             "sorties" => $sorties,
             "sites" => $sites,
-            "participants" => $participants
+            "participants" => $participants,
+            "mesSorties" => $mesSorties,
+            "sortiesPassees" => $sortiesPassees
         ]);
     }
 
@@ -74,11 +80,10 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-        $sortieForm -> remove('Supprimer la sortie');
+        $sortieForm->remove('Supprimer la sortie');
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
-        {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $sortie->setOrganisateur($this->getUser());
 
             if ($sortieForm->get('enregistrer')->isClicked()) {
@@ -119,8 +124,7 @@ class SortieController extends Controller
 
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid())
-        {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             $sortie->setOrganisateur($this->getUser());
 
@@ -132,29 +136,60 @@ class SortieController extends Controller
 
                 $this->addFlash("success", "Sortie enregistrée avec succès");
                 return $this->redirectToRoute("sortie_liste");
-            }
-            elseif ($sortieForm->get('Publier la sortie')->isClicked())
-            {
+            } elseif ($sortieForm->get('Publier la sortie')->isClicked()) {
                 $sortie->setEtat($em->getRepository(Etat::class)->find(2));
                 $em->persist($sortie);
                 $em->flush();
 
                 $this->addFlash("success", "Sortie publiée avec succès");
                 return $this->redirectToRoute("sortie_liste");
-            }
-            else
-            {
+            } else {
 
-                    $em->remove($sortie);
-                    $em->flush();
+                $em->remove($sortie);
+                $em->flush();
 
-                    $this->addFlash('success', 'Sortie supprimée avec succès');
-                    return $this->redirectToRoute("sortie_liste");
+                $this->addFlash('success', 'Sortie supprimée avec succès');
+                return $this->redirectToRoute("sortie_liste");
             }
 
         }
         return $this->render("sortie/modifier.html.twig", [
             "form" => $sortieForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/annuler-{id}", name="annuler")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param Sortie $sortie
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function annulerAction(Request $request, EntityManagerInterface $em, Sortie $sortie)
+    {
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add("enregistrer", SubmitType::class)
+            ->add("annuler", SubmitType::class);
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->get('enregistrer')->isClicked()) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(6));
+                $em->persist($sortie);
+                $em->flush();
+
+                $this->addFlash("success", "La sortie a bien été annulée");
+                return $this->redirectToRoute("sortie_liste");
+            } elseif ($form->get('annuler')->isClicked()) {
+                return $this->redirectToRoute("sortie_liste");
+            }
+        }
+
+        return $this->render("sortie/annuler.html.twig", [
+            "form" => $form->createView(),
+            "sortie" => $sortie
         ]);
     }
 }

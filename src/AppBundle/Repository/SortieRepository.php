@@ -12,13 +12,26 @@ use AppBundle\Entity\Sortie;
  */
 class SortieRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getSortiesBySite($site)
+    public function getSortiesOrganisateur($id)
     {
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder();
-        $queryBuilder->select(["sortie"])
+        $queryBuilder->select(["sorties"])
             ->from(Sortie::class, "sorties")
-            ->where("site.nom = $site");
+            ->where("sorties.organisateur = $id");
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getSortiesPassees()
+    {
+        $today = new \DateTime('now');
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $queryBuilder->select(["sorties"])
+            ->from(Sortie::class, "sorties")
+            ->where("sorties.datedebut <= :today")
+            ->setParameter('today', $today->format('Y-m-d'));
 
         return $queryBuilder->getQuery()->getResult();
     }

@@ -12,11 +12,14 @@
     </form>
 
     <table class="pure-table" id="tab">
+        <thead>
         <tr class="pure-table-odd">
             <th>Ville</th>
             <th>Code postal</th>
             <th>Actions</th>
         </tr>
+        </thead>
+        <tbody>
         {% for ville in villes %}
             <tr class="pure-table-odd">
                 <td>
@@ -30,6 +33,7 @@
                 </td>
             </tr>
         {% endfor %}
+        </tbody>
         <tr class="pure-table-odd">
             <td>
                 <input type="text">
