@@ -85,7 +85,11 @@
                 <td>
                     <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                     <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a>
-                    <a href="{{ path('sortie_inscriptionSortie', {"id": sortie.id}) }}">S'inscrire</a>
+                    {#<a data-target="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}"#}
+                       {#data-tooltip="voir"#}
+                       {#class="tooltipped modal-trigger btn right-align"#}
+                       {#href="#modal1">S'inscrire</a>#}
+                    <a href="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
                 </td>
                 <td style="display: none">
                     {{ sortie.site }}

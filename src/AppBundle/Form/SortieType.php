@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Participant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -21,14 +20,15 @@ class SortieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom', TextType::class)
-            ->add('datedebut', DateTimeType::class)
-            ->add('datecloture', DateType::class)
-            ->add('nbinscriptionsmax', NumberType::class)
-            ->add('duree', NumberType::class)
-            ->add('descriptioninfos', TextareaType::class)
-            ->add('lieu', EntityType::class, ["class" => "AppBundle\Entity\Lieu"])
-            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
+
+        $builder->add('nom', TextType::class, ['label' => 'Nom de la sortie : '])
+            ->add('datedebut', DateTimeType::class, ['label' => 'Date et heure de la sortie : '])
+            ->add('datecloture', DateType::class, ['label' => 'Date limite d\'inscription : '])
+            ->add('nbinscriptionsmax', NumberType::class, ['label' => 'Nombre de places : '])
+            ->add('duree', NumberType::class, ['label' => 'Durée'])
+            ->add('descriptioninfos', TextareaType::class, ['label' => 'Description et infos : '])
+            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])//
+            ->add('lieu', LieuType::class)
             ->add("enregistrer", SubmitType::class)
             ->add("Publier la sortie", SubmitType::class)
             ->add('Supprimer la sortie', SubmitType::class);

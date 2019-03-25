@@ -50,4 +50,5 @@ class InscriptionController extends Controller
         ]);
     }
 
+
 }
