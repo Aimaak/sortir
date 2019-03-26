@@ -96,7 +96,7 @@ class Sortie
     private $organisateur;
 
     /**
-     * @var
+     * @var Participant
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Participant", inversedBy="sorties")
      * @ORM\JoinTable(name="inscriptions", joinColumns={@ORM\JoinColumn(name="sorties_no_sortie", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="participants_no_participant", referencedColumnName="id")}
@@ -350,6 +350,16 @@ class Sortie
     }
 
     /**
+     * @param mixed $organisateur
+     * @return Sortie
+     */
+    public function setOrganisateur($organisateur)
+    {
+        $this->organisateur = $organisateur;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getParticipants()
@@ -357,13 +367,18 @@ class Sortie
         return $this->participants;
     }
 
-    /**
-     * @param mixed $participants
-     * @return Sortie
-     */
-    public function setParticipants($participants)
+    public function addParticipants($participant)
     {
-        $this->participants = $participants;
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+        return $this;
+    }
+
+    public function removeParticipants($participant)
+    {
+        $this->participants->removeElement($participant);
+
         return $this;
     }
 

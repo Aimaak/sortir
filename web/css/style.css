@@ -10,6 +10,11 @@
     font-style: normal;
 }
 
+input[type="radio"] {
+    -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
+    -moz-appearance: checkbox;    /* Firefox */
+}
+
 #about-us {
     max-width: 80%;
     height: auto;

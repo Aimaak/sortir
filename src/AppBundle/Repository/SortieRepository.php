@@ -13,6 +13,18 @@ use Doctrine\ORM\Query\Expr;
  */
 class SortieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllExceptArchived()
+    {
+        $today = new \DateTime('now');
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select("s")
+            ->from(Sortie::class, "s")
+            ->where("DATE_DIFF(:today, s.datedebut) <= 30 ")
+            ->setParameter('today', $today->format('Y-m-d'));
+        return $qb->getQuery()->getResult();
+    }
+
     public function getSortiesOrganisateur($id)
     {
         $em = $this->getEntityManager();
@@ -37,15 +49,26 @@ class SortieRepository extends \Doctrine\ORM\EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getSortiesInscrit($idUser)
+    public function getSortiesFiltreDate($dateDebut, $dateFin)
     {
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder();
-        $queryBuilder->select("sorties")
-            ->from(Sortie::class, "s")
-            ->innerJoin("s.inscriptions", "i", Expr\Join::ON, "s.id = i.sorties_no_sortie")
-            ->where("i.partipants_no_participant = $idUser");
+        $queryBuilder->select(["sorties"])
+            ->from(Sortie::class, "sorties")
+            ->where("sorties.datedebut BETWEEN :debut AND :fin")
+            ->setParameter('debut', $dateDebut)
+            ->setParameter('fin', $dateFin);
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getSortiesInscrit($id)
+    {
+
+    }
+
+    public function getSortiesNonInscrit($id)
+    {
+
     }
 }
