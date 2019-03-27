@@ -1,6 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block maincontent %}
+    {% for message in app.flashes("success") %}
+        <div id="alert"><a class="alert-success" href="#alert">{{ message }}</a></div>
+    {% endfor %}
     <h1>Gérer les villes</h1>
 
     <h5>Filtrer les villes</h5>

@@ -4,11 +4,11 @@
     <div class="background">
         <div class="background-text">
 
-            {% if error %}
-                <div class="alert">
-                    <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
-                </div>
-            {% endif %}
+    {% if error %}
+        <div id="alert" class="alert">
+            <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
+        </div>
+    {% endif %}
 
             <form class="pure-form pure-form-aligned" method="post" id="login">
                 <fieldset>

@@ -8,16 +8,16 @@
         <p>Nom de la sortie : {{ sortie.nom }}</p>
         <p>Date de la sortie : {{ sortie.datedebut|date('d/m/Y') }}</p>
         <p>Ville organisatrice : {{ sortie.site }}</p>
-        <p>Lieu : {{ sortie.lieu.ville }}</p>
-        <p>Motif : </p>
-        <textarea form="form" rows="5" cols="50"></textarea>
+        <p>Lieu : {{ sortie.lieu.nomLieu }}, {{ sortie.lieu.rue }} - {{ sortie.lieu.ville }}</p>
     </div>
-    {{ form_start(form) }}
+    <div class="pure-form">
+        {{ form_start(form) }}
 
-    {{ form_row(form.enregistrer, {'attr' : {'class' : 'pure-button pure-button-primary'}}) }}
-    {{ form_widget(form.annuler, {'attr' : {'class' : 'pure-button pure-button-primary'}}) }}
-
-    {{ form_end(form) }}
-
+        {{ form_label(form.motif) }}
+        {{ form_widget(form.motif) }}
+        {{ form_row(form.enregistrer, {'attr' : {'class' : 'pure-button pure-button-primary'}}) }}
+        <a href="{{ path('sortie_liste') }}" class="pure-button pure-button-primary">Annuler</a>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 

@@ -1,14 +1,13 @@
 {% extends 'layout.html.twig' %}
-
 {% block maincontent %}
     <h1>{{ participant.pseudo }}</h1>
-
 
     <form>
         <div class="form-group row">
             <label for="staticPrenom" class="col-sm-2 col-form-label">Prénom : </label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticPrenom" value="{{ participant.prenom }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticPrenom"
+                       value="{{ participant.prenom }}">
             </div>
         </div>
         <div class="form-group row">
@@ -20,19 +19,22 @@
         <div class="form-group row">
             <label for="staticTel" class="col-sm-2 col-form-label">Téléphone : </label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticTel" value="{{ participant.telephone }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticTel"
+                       value="{{ participant.telephone }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Email : </label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ participant.mail }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                       value="{{ participant.mail }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="staticVilleRattachement" class="col-sm-2 col-form-label">Ville de rattachement : </label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticVilleRattachement" value="{{ participant.site }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticVilleRattachement"
+                       value="{{ participant.site }}">
             </div>
         </div>
     </form>

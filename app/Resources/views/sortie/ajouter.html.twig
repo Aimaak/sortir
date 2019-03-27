@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block maincontent %}
+    {% for message in app.flashes("error") %}
+        <div id="alert"><a class="alert-error" href="#alert">{{ message }}</a></div>
+    {% endfor %}
     <header>
         <h2 align="center">Créer une sortie</h2>
-
-        <br><br>
     </header>
 
     <form class="formSortie" method="post">
