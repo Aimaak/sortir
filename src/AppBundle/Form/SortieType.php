@@ -27,10 +27,10 @@ class SortieType extends AbstractType
             ->add('nbinscriptionsmax', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('duree', NumberType::class, ['label' => 'Durée'])
             ->add('descriptioninfos', TextareaType::class, ['label' => 'Description et infos : '])
-            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])//
+            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
             ->add('lieu', LieuType::class)
             ->add("enregistrer", SubmitType::class)
-            ->add("Publier la sortie", SubmitType::class)
+            ->add("Publier_la_sortie", SubmitType::class)
             ->add('Supprimer la sortie', SubmitType::class);
 
     }

@@ -14,34 +14,37 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 </head>
 <body>
-<div class="pure-menu pure-menu-horizontal">
+<div class="navbar navbar-expand-lg navbar-dark bg-info">
+
     <a class="pure-menu-heading pure-menu-link" href="{{ path('sortie_liste') }}">
         <header>
-            {#<img src="{{ asset('img/logo.png') }}" alt="">#}
-            <h1>Sortir.com</h1>
+            <img src="{{ asset('img/sortir.jpg') }}" alt="logo sortir">
+            {#<h1>Sortir.com</h1>#}
         </header>
     </a>
-    <ul class="pure-menu-list">
+
+    <ul class="navbar-nav ml-auto">
         {% if is_granted("ROLE_ADMIN") %}
-            <li class="pure-menu-item">
-                <a class="pure-menu-link" href="{{ path('ville_liste') }}">Villes</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('ville_liste') }}">Villes</a>
             </li>
-            <li class="pure-menu-item">
-                <a class="pure-menu-link" href="{{ path('site_liste') }}">Sites</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('site_liste') }}">Sites</a>
             </li>
         {% endif %}
-        <li class="pure-menu-item">
-            <a class="pure-menu-link" href="{{ path('sortie_liste') }}">Accueil</a>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('sortie_liste') }}">Accueil</a>
         </li>
-        <li class="pure-menu-item">
+        <li class="nav-item active">
             {% if app.user %}
-                <a class="pure-menu-link" href="{{ path('mon_profil', {"id":app.user.id}) }}">Mon Profil</a>
+                <a class="nav-link" href="{{ path('mon_profil', {"id":app.user.id}) }}">Mon Profil</a>
             {% endif %}
         </li>
-        <li class="pure-menu-item">
-            <a class="pure-menu-link" href="{{ path('logout') }}">Se Déconnecter</a>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('logout') }}">Se Déconnecter</a>
         </li>
     </ul>
+
 </div>
 
 <section>

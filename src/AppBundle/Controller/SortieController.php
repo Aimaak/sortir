@@ -163,8 +163,6 @@ class SortieController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @Route("/annuler-{id}", name="annuler")
      * @param Request $request
@@ -199,5 +197,4 @@ class SortieController extends Controller
             "sortie" => $sortie
         ]);
     }
->>>>>>> develop
 }

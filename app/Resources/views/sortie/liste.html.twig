@@ -8,12 +8,14 @@
         <div class="pure-u-2-3"></div>
         <div class="pure-u-1-3">
             <h4>Date du jour : {{ "now"|date("d/m/Y") }}</h4>
-            <h4>Participant : {{ app.user.prenom }} {{ app.user.nom }}</h4>
+            <h4>Participant(e) : {{ app.user.prenom }} {{ app.user.nom }}</h4>
         </div>
 
     </div>
     <h5>Filtrer les sorties</h5>
     <form class="pure-form pure-g" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
         <div class="pure-control-group pure-u-1-3">
             <label for="site">Site :
                 <select class="pure-input-1" name="site" id="site">
@@ -31,14 +33,22 @@
             <label for="dateFin">et : <input type="text" class="searchInput" id="dateFin" name="dateFin"></label>
 
         </div>
+            </div>
+
+            <div class="form-group col-md-4">
         <div class="pure-control-group pure-u-1-3">
             <label for="filtres" class="filtres pure-checkbox">Sorties dont je suis l'organisateur/trice<input type="checkbox" id="organisateur" name="filtres"></label>
             <label for="filtres" class="filtres pure-checkbox">Sorties passées<input type="checkbox" id="passees" name="filtres"></label>
             <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je suis inscrit/e<input type="checkbox" id="inscrit" name="filtres"></label>
             <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je ne suis pas inscrit/e<input type="checkbox" id="nonInscrit" name="filtres"></label>
         </div>
+            </div>
+
+            <div class="form-group col-md-2">
         <div class="pure-control-group pure-u-1-3">
             <input type="submit" class="submitSearch pure-button pure-button-primary" value="Rechercher">
+        </div>
+            </div>
         </div>
     </form>
 {% endblock %}
