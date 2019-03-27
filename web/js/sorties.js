@@ -19,13 +19,13 @@ function rechercheNom() {
     }
 }
 
-$('select').change(function (e) {
+$('select').change(function () {
     var site = $(this).val().trim();
     if (site === 'Tous') {
         $('tr').show();
     } else {
         $('.fbody #sortie').each(function (rowIdx, tr) {
-            $(this).hide().find('td').each(function (idx, td) {
+            $(this).hide().find('td').each(function (idx) {
                 if (idx === 8) {
                     var check = $(this).text().trim();
                     if (check && check.indexOf(site) == 0) {
@@ -38,7 +38,7 @@ $('select').change(function (e) {
     }
 });
 
-$('#organisateur').change(function () {
+$('#organisateur').click(function () {
 
     if (this.checked) {
         $('#mesSorties').show();
@@ -52,7 +52,7 @@ $('#organisateur').change(function () {
 
 });
 
-$('#passees').change(function () {
+$('#passees').click(function () {
 
     if (this.checked) {
         $('#sortiesPassees').show();
@@ -66,7 +66,7 @@ $('#passees').change(function () {
 
 });
 
-$('#inscrit').change(function () {
+$('#inscrit').click(function () {
 
     if (this.checked) {
         $('#sortiesInscrit').show();
@@ -80,7 +80,7 @@ $('#inscrit').change(function () {
 
 });
 
-$('#nonInscrit').change(function () {
+$('#nonInscrit').click(function () {
 
     if (this.checked) {
         $('#sortiesnonInscrit').show();
@@ -97,9 +97,8 @@ $('#nonInscrit').change(function () {
 $(document).ready(function () {
 
     var tableDateDebutCellIndex = 1;
-    var tableDateFinCellIndex = 2;
 
-    $('#dateFin').on('change', function (evt) {
+    $('.searchInput').on('change', function () {
 
         var startDate = parseDate($('#dateDebut').val());
         var endDate = parseDate($('#dateFin').val());
@@ -112,9 +111,8 @@ $(document).ready(function () {
 
         $.each(rows, function (index, row) {
             var rowDateDebut = parseDate($($(row).find("td")[tableDateDebutCellIndex]).text());
-            var rowDateFin = parseDate($($(row).find("td")[tableDateFinCellIndex]).text());
 
-            if (rowDateDebut < startDate || rowDateFin > endDate) {
+            if (rowDateDebut < startDate && rowDateDebut > endDate) {
                 // could take an action other than hiding the row with the date outside of the specified range
                 $(row).hide();
             }
