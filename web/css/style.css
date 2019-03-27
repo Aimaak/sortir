@@ -1,14 +1,4 @@
-@font-face {
-    font-family: 'brushstroke_plainplain';
-    src: url('BRUSHSTP-webfont.eot');
-    src: url('BRUSHSTP-webfont.eot?#iefix') format('embedded-opentype'),
-    url('BRUSHSTP-webfont.woff2') format('woff2'),
-    url('BRUSHSTP-webfont.woff') format('woff'),
-    url('BRUSHSTP-webfont.ttf') format('truetype'),
-    url('BRUSHSTP-webfont.svg#brushstroke_plainplain') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 input[type="radio"] {
     -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
@@ -198,9 +188,4 @@ footer {
 .pure-menu-list
 {
     text-align: right;
-}
-
-#navbarSupportedContent
-{
-    color: white;
 }

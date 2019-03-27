@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %}
+{% extends "layout_pure.html.twig" %}
 
 {% block maincontent %}
     {% for message in app.flashes("success") %}
@@ -8,58 +8,84 @@
         <div id="alert"><a class="alert-error" href="#alert">{{ message }}</a></div>
     {% endfor %}
     <div class="pure-g">
-        <div class="pure-u-2-3"></div>
-        <div class="pure-u-1-3">
-            <h4>Date du jour : {{ "now"|date("d/m/Y") }}</h4>
-            <h4>Participant(e) : {{ app.user.prenom }} {{ app.user.nom }}</h4>
+        <div class="pure-u-lg-2-3"></div>
+        <div class="pure-u-lg-1-3 pure-user">
+            <h3>Date du jour : {{ "now"|date("d/m/Y") }}</h3>
+            <h3>Participant(e) : {{ app.user.prenom }} {{ app.user.nom }}</h3>
         </div>
 
     </div>
-    <h5>Filtrer les sorties</h5>
-    <form class="pure-form pure-g" method="post">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-        <div class="pure-control-group pure-u-1-3">
-            <label for="site">Site :
-                <select class="pure-input-1" name="site" id="site">
-                    <option value="Tous">Tous</option>
-                    {% for site in sites %}
-                        <option value="{{ site.nomSite }}">
-                            {{ site.nomSite }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </label>
+    <h3>Filtrer les sorties</h3>
 
-            <label for="nom">Le nom de la sortie contient : <input type="search" class="pure-input-1" id="nom"
-                                                                   name="nom" onkeyup="rechercheNom()"></label>
-            <label for="dateDebut">Entre : <input type="text" class="searchInput" id="dateDebut"
-                                                  name="dateDebut"></label>
-            <label for="dateFin">et : <input type="text" class="searchInput" id="dateFin" name="dateFin"></label>
+    <form method="post">
+        <div class="pure-form pure-g">
+            <div class="pure-u-lg-12-24">
+                <div class="form form-input">
+                    <div class="pure-form pure-form-aligned">
+                        <div class="pure-control-group">
+                            <label for="site">Site : </label>
+                            <select class="pure-input-1-2" name="site" id="site">
+                                <option value="Tous">Tous</option>
+                                {% for site in sites %}
+                                    <option value="{{ site.nomSite }}">
+                                        {{ site.nomSite }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-        </div>
+                        <div class="pure-control-group">
+                            <label for="nom">Le nom de la sortie contient : </label>
+                            <i class="fas fa-search"></i>
+                            <input type="search" onkeyup="rechercheNom()" class="pure-input-rounded" id="nom" name="nom"
+                                   placeholder="search">
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label for="dateDebut">Entre : </label>
+                            <input type="datetime-local" class="searchInput" id="dateDebut" name="dateDebut">
+                        </div>
+                        <div class="pure-control-group">
+                            <label for="dateFin">et : </label>
+                            <input type="date" class="searchInput" id="dateFin" name="dateFin">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group col-md-4">
-        <div class="pure-control-group pure-u-1-3">
-            <label for="filtres" class="filtres pure-checkbox">Sorties dont je suis l'organisateur/trice<input
-                        type="checkbox" id="organisateur" name="filtres"></label>
-            <label for="filtres" class="filtres pure-checkbox">Sorties passées<input type="checkbox" id="passees"
-                                                                                     name="filtres"></label>
-            <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je suis inscrit/e<input
-                        type="checkbox" id="inscrit" name="filtres"></label>
-            <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je ne suis pas inscrit/e<input
-                        type="checkbox" id="nonInscrit" name="filtres"></label>
-        </div>
+            <div class="pure-u-lg-9-24">
+                <div class="pure-form form-checkbox">
+                    <div class="pure-control-group ">
+                        <label for="filtres" class="filtres pure-checkbox">
+                            <input type="checkbox" id="organisateur" name="filtres">
+                            Sorties dont je suis l'organisateur/trice
+                        </label>
+                        <label for="filtres" class="filtres pure-checkbox">
+                            <input type="checkbox" id="inscrit" name="filtres">
+                            Sorties auxquelles je suis inscrit/e
+                        </label>
+                        <label for="filtres" class="filtres pure-checkbox">
+                            <input type="checkbox" id="nonInscrit" name="filtres">
+                            Sorties auxquelles je ne suis pas inscrit/e
+                        </label>
+                        <label for="filtres" class="filtres pure-checkbox">
+                            <input type="checkbox" id="passees" name="filtres">
+                            Sorties passées
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group col-md-2">
-        <div class="pure-control-group pure-u-1-3">
-            <input type="submit" class="submitSearch pure-button pure-button-primary" value="Rechercher">
-        </div>
+            <div class="pure-u-lg-3-24">
+                <div class="pure-form form-submit">
+                    <div class="pure-control-group">
+                        <input type="submit" class="submitSearch pure-button pure-button-primary" value="Rechercher">
+                    </div>
+                </div>
             </div>
         </div>
     </form>
+    <br><br>
 {% endblock %}
 
 {% block recherche %}
@@ -312,15 +338,15 @@
                 <td>
                     <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                     <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a>
-<<<<<<< HEAD
+
                     {#<a data-target="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}"#}
-                       {#data-tooltip="voir"#}
-                       {#class="tooltipped modal-trigger btn right-align"#}
-                       {#href="#modal1">S'inscrire</a>#}
+                    {#data-tooltip="voir"#}
+                    {#class="tooltipped modal-trigger btn right-align"#}
+                    {#href="#modal1">S'inscrire</a>#}
                     <a href="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
-=======
+
                     <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
->>>>>>> develop
+                    p
                 </td>
                 <td style="display: none">
                     {{ sortie.site }}
@@ -329,6 +355,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <br><br>
     <a href="{{ path('sortie_creerSortie') }}"><input type="submit" class="pure-button pure-button-primary"
                                                       value="Créer une sortie"></a>
 {% endblock %}
