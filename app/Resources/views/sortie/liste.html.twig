@@ -33,9 +33,9 @@
 
             <label for="nom">Le nom de la sortie contient : <input type="search" class="pure-input-1" id="nom"
                                                                    name="nom" onkeyup="rechercheNom()"></label>
-            <label for="dateDebut">Entre : <input type="text" class="searchInput" id="dateDebut"
+            <label for="dateDebut">Entre : <input type="datetime-local" class="searchInput" id="dateDebut"
                                                   name="dateDebut"></label>
-            <label for="dateFin">et : <input type="text" class="searchInput" id="dateFin" name="dateFin"></label>
+            <label for="dateFin">et : <input type="date" class="searchInput" id="dateFin" name="dateFin"></label>
 
         </div>
             </div>
@@ -234,7 +234,7 @@
                         <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
                     {% endif %}
                     {% if sortie.etat == "Clôturée" %}
-                        Afficher
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
                     {% endif %}
                     {% if sortie.etat == "Activité en cours" %}
                         <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
@@ -251,7 +251,9 @@
         {% endfor %}
         </tbody>
         <tbody class="fbody" id="sortiesInscrit" style="display: none">
-        {% for sortie in mesSorties %}
+        {% for sortie in sortiesSansArchivees %}
+            {% set compteur = 0 %}
+            {% if app.user in sortie.participants %}
             <tr class="pure-table-odd" id="sortie">
                 <td>
                     {{ sortie.nom }}
@@ -263,7 +265,10 @@
                     {{ sortie.datecloture|date('d/m/Y') }}
                 </td>
                 <td>
-                    {{ sortie.nbinscriptionsmax }}
+                    {% for participant in sortie.participants %}
+                        {% set compteur = compteur + 1 %}
+                    {% endfor %}
+                    {{ compteur }}/{{ sortie.nbinscriptionsmax }}
                 </td>
                 <td>
                     {{ sortie.etat }}
@@ -275,18 +280,40 @@
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
                 </td>
                 <td>
-                    <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
-                    <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a>
-                    <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur != app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        {% if app.user not in sortie.participants %}
+                            <a href="{{ path('sortie_inscription', {"id": sortie.id}) }}">S'inscrire</a>
+                        {% elseif app.user in sortie.participants %}
+                            <a href="{{ path('sortie_desister', {"id": sortie.id}) }}">Se désister</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
+                    {% endif %}
+                    {% if sortie.etat == "Clôturée" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Activité en cours" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Créée" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a> -
+                        Publier
+                    {% endif %}
                 </td>
                 <td style="display: none">
                     {{ sortie.site }}
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
         <tbody class="fbody" id="sortiesNonInscrit" style="display: none">
-        {% for sortie in mesSorties %}
+        {% for sortie in sortiesSansArchivees %}
+            {% set compteur = 0 %}
+            {% if app.user not in sortie.participants %}
             <tr class="pure-table-odd" id="sortie">
                 <td>
                     {{ sortie.nom }}
@@ -298,7 +325,10 @@
                     {{ sortie.datecloture|date('d/m/Y') }}
                 </td>
                 <td>
-                    {{ sortie.nbinscriptionsmax }}
+                    {% for participant in sortie.participants %}
+                        {% set compteur = compteur + 1 %}
+                    {% endfor %}
+                    {{ compteur }}/{{ sortie.nbinscriptionsmax }}
                 </td>
                 <td>
                     {{ sortie.etat }}
@@ -310,17 +340,87 @@
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
                 </td>
                 <td>
-                    <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
-                    <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a>
-<<<<<<< HEAD
-                    {#<a data-target="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}"#}
-                       {#data-tooltip="voir"#}
-                       {#class="tooltipped modal-trigger btn right-align"#}
-                       {#href="#modal1">S'inscrire</a>#}
-                    <a href="{{ path('sortie_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
-=======
-                    <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
->>>>>>> develop
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur != app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        {% if app.user not in sortie.participants %}
+                            <a href="{{ path('sortie_inscription', {"id": sortie.id}) }}">S'inscrire</a>
+                        {% elseif app.user in sortie.participants %}
+                            <a href="{{ path('sortie_desister', {"id": sortie.id}) }}">Se désister</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
+                    {% endif %}
+                    {% if sortie.etat == "Clôturée" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Activité en cours" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Créée" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a> -
+                        Publier
+                    {% endif %}
+                </td>
+                <td style="display: none">
+                    {{ sortie.site }}
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        <tbody class="fbody" id="sortiesFiltreDates" style="display: none">
+        {% for sortie in sortiesSansArchivees %}
+            {% set compteur = 0 %}
+            <tr class="pure-table-odd" id="sortie">
+                <td>
+                    {{ sortie.nom }}
+                </td>
+                <td class="dateSortie">
+                    {{ sortie.datedebut|date('d/m/Y H\\Hi') }}
+                </td>
+                <td>
+                    {{ sortie.datecloture|date('d/m/Y') }}
+                </td>
+                <td>
+                    {% for participant in sortie.participants %}
+                        {% set compteur = compteur + 1 %}
+                    {% endfor %}
+                    {{ compteur }}/{{ sortie.nbinscriptionsmax }}
+                </td>
+                <td>
+                    {{ sortie.etat }}
+                </td>
+                <td>
+                    {{ sortie.site }}
+                </td>
+                <td>
+                    <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
+                </td>
+                <td>
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur != app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        {% if app.user not in sortie.participants %}
+                            <a href="{{ path('sortie_inscription', {"id": sortie.id}) }}">S'inscrire</a>
+                        {% elseif app.user in sortie.participants %}
+                            <a href="{{ path('sortie_desister', {"id": sortie.id}) }}">Se désister</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if sortie.etat == "Ouverte" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a> -
+                        <a href="{{ path('sortie_annuler', {"id": sortie.id}) }}">Annuler</a>
+                    {% endif %}
+                    {% if sortie.etat == "Clôturée" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Activité en cours" %}
+                        <a href="{{ path('sortie_detailSortie', {"id": sortie.id}) }}">Afficher</a>
+                    {% endif %}
+                    {% if sortie.etat == "Créée" and sortie.organisateur == app.user %}
+                        <a href="{{ path('sortie_modifierSortie', {"id": sortie.id}) }}">Modifier</a> -
+                        Publier
+                    {% endif %}
                 </td>
                 <td style="display: none">
                     {{ sortie.site }}

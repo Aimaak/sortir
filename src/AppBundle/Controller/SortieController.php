@@ -14,7 +14,6 @@ use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
 use AppBundle\Form\SortieType;
-use AppBundle\Form\ValidationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,8 +39,24 @@ class SortieController extends Controller
         if (!empty($request->request->get("dateDebut")) &&
             !empty($request->request->get("dateFin"))) {
 
-            $dateDebut = $request->request->get("dateDebut");
-            $dateFin = $request->request->get("dateFin");
+            $dateDebut = new \DateTime($request->request->get("dateDebut"));
+            $dateFin = new \DateTime($request->request->get("dateFin"));
+
+            $sites = $em->getRepository(Site::class)->findAll();
+            $participants = $em->getRepository(Participant::class)->findAll();
+            $mesSorties = $em->getRepository(Sortie::class)->getSortiesOrganisateur($id);
+            $sortiesPassees = $em->getRepository(Sortie::class)->getSortiesPassees();
+            $sortiesSansArchivees = $em->getRepository(Sortie::class)->getSortiesFiltreDate($dateDebut, $dateFin);
+
+            $request->request->remove("dateDebut");
+            $request->request->remove("dateFin");
+
+            return $this->render('sortie/liste.html.twig', ["sites" => $sites,
+                "participants" => $participants,
+                "mesSorties" => $mesSorties,
+                "sortiesPassees" => $sortiesPassees,
+                "sortiesSansArchivees" => $sortiesSansArchivees,
+            ]);
         }
 
         $sites = $em->getRepository(Site::class)->findAll();
@@ -49,16 +64,31 @@ class SortieController extends Controller
         $mesSorties = $em->getRepository(Sortie::class)->getSortiesOrganisateur($id);
         $sortiesPassees = $em->getRepository(Sortie::class)->getSortiesPassees();
         $sortiesSansArchivees = $em->getRepository(Sortie::class)->getAllExceptArchived();
-//        $sortiesInscrit = $em->getRepository(Sortie::class)->getSortiesInscrit($id);
-//        $sortiesNonInscrit = $em->getRepository(Sortie::class)->getSortiesInscrit($id);
+
+        foreach ($sortiesSansArchivees as $sortie) {
+            $today = new \DateTime('now');
+            if ($sortie->getDateCloture() <= $today) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(3));
+            }
+            if ($sortie->getDateDebut() <= $today) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(4));
+            }
+
+            $dateDiff = date_diff($sortie->getDateDebut(), $today);
+            if ($dateDiff->days > 1
+                && $sortie->getDateDebut() < $today
+                && $sortie->getEtat() == $em->getRepository(Etat::class)->find(4)) {
+                $sortie->setEtat($em->getRepository(Etat::class)->find(5));
+            }
+            $em->persist($sortie);
+            $em->flush();
+        }
 
         return $this->render('sortie/liste.html.twig', ["sites" => $sites,
             "participants" => $participants,
             "mesSorties" => $mesSorties,
             "sortiesPassees" => $sortiesPassees,
             "sortiesSansArchivees" => $sortiesSansArchivees,
-//          "sortiesInscrit" => $sortiesInscrit,
-//          "sortiesNonInscrit" => sortiesNonInscrit
         ]);
     }
 
@@ -222,13 +252,15 @@ class SortieController extends Controller
         $today = new \DateTime('now');
         $sortie = $em->getRepository(Sortie::class)->find($id);
         $dateLimite = $sortie->getDatecloture();
+        $participants = $sortie->getParticipants()->toArray();
 
-        if ($today < $dateLimite) {
+        if ($today < $dateLimite
+            && count($sortie->getParticipants()) < $sortie->getNbinscriptionsmax()
+            && !in_array($this->getUser(), $participants)) {
             $sortie->addParticipants($this->getUser());
 
             $em->persist($sortie);
             $em->flush();
-
 
             $this->addFlash("success", "Votre inscription a bien été enregistrée");
             return $this->redirectToRoute("sortie_liste");

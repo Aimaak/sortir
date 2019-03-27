@@ -21,30 +21,32 @@ class SortieRepository extends \Doctrine\ORM\EntityRepository
         $qb->select("s")
             ->from(Sortie::class, "s")
             ->where("DATE_DIFF(:today, s.datedebut) <= 30 ")
+            ->andWhere("s.etat != 5")
             ->setParameter('today', $today->format('Y-m-d'));
         return $qb->getQuery()->getResult();
     }
 
     public function getSortiesOrganisateur($id)
     {
+        $today = new \DateTime('now');
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder();
         $queryBuilder->select(["sorties"])
             ->from(Sortie::class, "sorties")
-            ->where("sorties.organisateur = $id");
+            ->where("sorties.organisateur = $id")
+            ->andWhere("DATE_DIFF(:today, sorties.datedebut) <= 30 ")
+            ->setParameter('today', $today->format('Y-m-d'));
 
         return $queryBuilder->getQuery()->getResult();
     }
 
     public function getSortiesPassees()
     {
-        $today = new \DateTime('now');
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder();
         $queryBuilder->select(["sorties"])
             ->from(Sortie::class, "sorties")
-            ->where("sorties.datedebut <= :today")
-            ->setParameter('today', $today->format('Y-m-d'));
+            ->where("sorties.etat = 5");
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -55,7 +57,7 @@ class SortieRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder = $em->createQueryBuilder();
         $queryBuilder->select(["sorties"])
             ->from(Sortie::class, "sorties")
-            ->where("sorties.datedebut BETWEEN :debut AND :fin")
+            ->where("sorties.datedebut >= :debut AND sorties.datedebut <= :fin")
             ->setParameter('debut', $dateDebut)
             ->setParameter('fin', $dateFin);
 
@@ -64,7 +66,13 @@ class SortieRepository extends \Doctrine\ORM\EntityRepository
 
     public function getSortiesInscrit($id)
     {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $queryBuilder->select(["sorties"])
+            ->from(Sortie::class, "sorties")
+            ->where("sorties.participants = $id");
 
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function getSortiesNonInscrit($id)

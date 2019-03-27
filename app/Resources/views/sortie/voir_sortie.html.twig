@@ -160,25 +160,25 @@
 
 
     <h3>Liste des participants inscrits :</h3>
-    {#<table class="pure-table">#}
-        {#<thead class="pure-table-odd">#}
-        {#<tr>#}
-            {#<th>Pseudo</th>#}
-            {#<th>Nom</th>#}
-        {#</tr>#}
-        {#</thead>#}
-        {#<tbody>#}
-        {#{% for participant in sortie.participants %}#}
-            {#<tr class="pure-table-odd">#}
-                {#<td>#}
-                    {#{{ participant.pseudo }}#}
-                {#</td>#}
-                {#<td>#}
-                    {#{{ participant.prenom }} {{ participant.nom|upper }}#}
-                {#</td>#}
-            {#</tr>#}
-        {#{% endfor %}#}
-        {#</tbody>#}
-    {#</table>#}
+    <table class="pure-table">
+        <thead class="pure-table-odd">
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for participant in sortie.participants %}
+            <tr class="pure-table-odd">
+                <td>
+                    {{ participant.pseudo }}
+                </td>
+                <td>
+                    {{ participant.prenom }} {{ participant.nom|upper }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
