@@ -17,6 +17,7 @@ use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -47,9 +48,6 @@ class SortieController extends Controller
             $mesSorties = $em->getRepository(Sortie::class)->getSortiesOrganisateur($id);
             $sortiesPassees = $em->getRepository(Sortie::class)->getSortiesPassees();
             $sortiesSansArchivees = $em->getRepository(Sortie::class)->getSortiesFiltreDate($dateDebut, $dateFin);
-
-            $request->request->remove("dateDebut");
-            $request->request->remove("dateFin");
 
             return $this->render('sortie/liste.html.twig', ["sites" => $sites,
                 "participants" => $participants,
@@ -122,7 +120,6 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-        $sortieForm->remove('Supprimer la sortie');
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
@@ -186,19 +183,39 @@ class SortieController extends Controller
 
                 $this->addFlash("success", "Sortie publiée avec succès");
                 return $this->redirectToRoute("sortie_liste");
-            } else {
-
-                $em->remove($sortie);
-                $em->flush();
-
-                $this->addFlash('success', 'Sortie supprimée avec succès');
-                return $this->redirectToRoute("sortie_liste");
             }
-
         }
         return $this->render("sortie/modifier.html.twig", [
             "form" => $sortieForm->createView(),
             "sortie" => $sortie
+        ]);
+    }
+
+    /**
+     * @Route("/supprimer-{id}.html", name="supprimer")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param Sortie $sortie
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function supprimerAction(Request $request, EntityManagerInterface $em, Sortie $sortie)
+    {
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add("Supprimer", SubmitType::class);
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em->remove($sortie);
+            $em->flush();
+
+            $this->addFlash("success", "La sortie a bien été supprimée");
+            return $this->redirectToRoute("sortie_liste");
+        }
+
+        return $this->render("site/supprimer.html.twig", [
+            "form" => $form->createView()
         ]);
     }
 
@@ -213,13 +230,20 @@ class SortieController extends Controller
     function annulerAction(Request $request, EntityManagerInterface $em, Sortie $sortie)
     {
         $formBuilder = $this->createFormBuilder();
-        $formBuilder->add("enregistrer", SubmitType::class)
-            ->add("annuler", SubmitType::class);
+        $formBuilder
+            ->add("motif", TextareaType::class,
+                array("label" => "Motif :",
+                "attr" => ["cols" => "45",
+                            "rows" => "10",
+                            "required"]))
+            ->add("enregistrer", SubmitType::class);
 
         $form = $formBuilder->getForm();
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() &&
+            $form->isValid() &&
+            !empty($form->getData("motif"))) {
             if ($form->get('enregistrer')->isClicked()) {
                 $sortie->setEtat($em->getRepository(Etat::class)->find(6));
                 $em->persist($sortie);

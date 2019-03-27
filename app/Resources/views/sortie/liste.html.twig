@@ -48,7 +48,7 @@
                                                                                      name="filtres"></label>
             <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je suis inscrit/e<input
                         type="checkbox" id="inscrit" name="filtres"></label>
-            <label for="filtres" class="filtres pure-checkbox">Sorties auxquelles je ne suis pas inscrit/e<input
+            <label for="filtres" class="filtres pure-checkbox" disabled="">Sorties auxquelles je ne suis pas inscrit/e<input
                         type="checkbox" id="nonInscrit" name="filtres"></label>
         </div>
             </div>
@@ -99,7 +99,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
@@ -157,7 +159,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
@@ -215,7 +219,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
@@ -274,7 +280,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
@@ -334,7 +342,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
@@ -393,7 +403,9 @@
                     {{ sortie.etat }}
                 </td>
                 <td>
-                    {{ sortie.site }}
+                    {% if app.user in sortie.participants %}
+                        <strong>X</strong>
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>

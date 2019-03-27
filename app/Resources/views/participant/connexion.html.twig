@@ -3,7 +3,7 @@
 {% block maincontent %}
 
     {% if error %}
-        <div class="alert">
+        <div id="alert" class="alert">
             <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
         </div>
     {% endif %}
@@ -12,7 +12,7 @@
         <fieldset>
             <div class="pure-control-group">
                 <label for="_username">Identifiant : </label>
-                <input id="_username" type="text" placeholder="Identifiant" name="_username">
+                <input id="_username" type="text" placeholder="Pseudo ou email" name="_username">
             </div>
 
             <div class="pure-control-group">

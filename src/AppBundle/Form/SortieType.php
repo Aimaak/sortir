@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Lieu;
+use AppBundle\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -28,18 +30,20 @@ class SortieType extends AbstractType
                         'months' => range(date('m'), 12),
                         'days' => range(date('d'), 31),
                         'hours' => range(\date('h'), 23),
-                        'minutes' => range(\date('i'), 59)))
+                        'minutes' => range(\date('i'), 59),
+                        'label' => 'Date et heure de la sortie'))
             ->add('datecloture', DateType::class, array('years' => range(date('Y'), date('Y') + 10),
                         'months' => range(date('m'), 12),
-                        'days' => range(date('d'), 31),))
+                        'days' => range(date('d'), 31),
+                        'label' => 'Date limite d\'inscription'))
             ->add('nbinscriptionsmax', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('duree', NumberType::class, ['label' => 'Durée'])
             ->add('descriptioninfos', TextareaType::class, ['label' => 'Description et infos : '])
-            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
-            ->add('lieu', LieuType::class)
+            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site",
+                                                        'label' => "Ville organisatrice"])
+            ->add('lieu', EntityType::class, ["class" => Lieu::class])
             ->add("enregistrer", SubmitType::class)
-            ->add("Publier_la_sortie", SubmitType::class)
-            ->add('Supprimer la sortie', SubmitType::class);
+            ->add("Publier_la_sortie", SubmitType::class);
 
     }
 
