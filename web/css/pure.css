@@ -189,9 +189,10 @@ section
     height: 50px;
 }
 
+
 #mon-profil
 {
-    alignment: center;
+    margin-left: 5em;
 }
 
 h1
