@@ -53,7 +53,7 @@ class Lieu
 
     /**
      * @var
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ville", inversedBy="lieux")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ville", inversedBy="lieux", cascade={"persist"})
      */
     private $ville;
 

@@ -96,6 +96,6 @@ class ParticipantController extends Controller
      */
     public function logoutAction()
     {
-
+        $this->addFlash('success', 'Vous êtes déconnecté(e) !');
     }
 }

@@ -9,6 +9,9 @@
             <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
         </div>
     {% endif %}
+            {% for message in app.flashes("success") %}
+                <div id="alert"><a class="alert-success" href="#alert">{{ message }}</a></div>
+            {% endfor %}
 
             <form class="pure-form pure-form-aligned" method="post" id="login">
                 <fieldset>
