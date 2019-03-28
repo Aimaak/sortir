@@ -26,10 +26,10 @@ class Participant implements UserInterface
     /**
      * @Assert\NotBlank()
      * @Assert\Length(
-     *      min = 6,
+     *      min = 3,
      *      max = 30,
-     *      minMessage = "Votre pseudo doit au moins faire {{ min }} caractères",
-     *      maxMessage = "Votre pseudo ne doit pas faire plus de {{ max }} caractères"
+     *      minMessage = "Votre pseudo doit au moins faire 6 caractères",
+     *      maxMessage = "Votre pseudo ne doit pas faire plus de 30 caractères"
      * )
      * @var string
      *
@@ -43,8 +43,8 @@ class Participant implements UserInterface
      * @Assert\Length(
      *      min = 5,
      *      max = 30,
-     *      minMessage = "Votre nom doit au moins faire {{ min }} caractères",
-     *      maxMessage = "Votre nom ne doit pas faire plus de {{ max }} caractères"
+     *      minMessage = "Votre nom doit au moins faire 5 caractères",
+     *      maxMessage = "Votre nom ne doit pas faire plus de 30 caractères"
      * )
      * @ORM\Column(name="nom", type="string", length=30)
      */
@@ -54,10 +54,10 @@ class Participant implements UserInterface
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(
-     *      min = 2,
+     *      min = 3,
      *      max = 30,
-     *      minMessage = "Votre prénom doit au moins faire {{ min }} caractères",
-     *      maxMessage = "Votre prénom ne doit pas faire plus de {{ max }} caractères"
+     *      minMessage = "Votre prénom doit au moins faire 5 caractères",
+     *      maxMessage = "Votre prénom ne doit pas faire plus de 30 caractères"
      * )
      * @ORM\Column(name="prenom", type="string", length=30)
      */
@@ -65,14 +65,14 @@ class Participant implements UserInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      * @ORM\Column(name="telephone", type="string", length=15, nullable=true)
      */
     private $telephone;
 
     /**
      * @var string
-     * @Assert\Email()
+     * @Assert\Email(message="Adresse mail invalide")
      * @ORM\Column(name="mail", type="string", length=20)
      */
     private $mail;
@@ -80,8 +80,9 @@ class Participant implements UserInterface
     /**
      * @Assert\Length(
      *      min = 8,
-     *      minMessage = "Votre mot de passe doit au moins faire {{ min }} caractères"
+     *      minMessage = "Votre mot de passe doit au moins faire 8 caractères"
      * )
+     * @Assert\NotBlank(message="Champ requis")
      * @var string
      *
      * @ORM\Column(name="motdepasse", type="string", length=255)

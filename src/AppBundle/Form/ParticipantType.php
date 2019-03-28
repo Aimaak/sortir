@@ -24,9 +24,12 @@ class ParticipantType extends AbstractType
             ->add('nom')
             ->add('telephone')
             ->add('mail', EmailType::class, ['label' => 'Email'])
-            ->add('motdepasse', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Mot de passe'],
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation'],
             ])
             ->add('site')
