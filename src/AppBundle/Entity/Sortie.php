@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sortie
@@ -23,26 +24,35 @@ class Sortie
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le nom de la sortie doit au moins faire 5 caractères",
+     *      maxMessage = "Le nom de la sortie ne doit pas faire plus de 30 caractères")
      * @ORM\Column(name="nom", type="string", length=30)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="datetime", message="Date non valide")
      * @var \DateTime
-     *
      * @ORM\Column(name="datedebut", type="datetime")
      */
     private $datedebut;
 
     /**
+     * @Assert\NotBlank(message="Champ obligatoire")
      * @var int
-     *
+     * @Assert\Type(type="float", message="Durée non valide")
      * @ORM\Column(name="duree", type="integer", nullable=true)
      */
     private $duree;
 
     /**
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Date()
      * @var \DateTime
      *
      * @ORM\Column(name="datecloture", type="datetime")
@@ -51,6 +61,8 @@ class Sortie
 
     /**
      * @var int
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="float", message="Format invalide")
      *
      * @ORM\Column(name="nbinscriptionsmax", type="integer")
      */
@@ -58,7 +70,12 @@ class Sortie
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 500,
+     *      minMessage = "La description de la sortie doit au moins faire 10 caractères",
+     *      maxMessage = "La description de la sortie ne doit pas faire plus de 500 caractères")
      * @ORM\Column(name="descriptioninfos", type="string", length=500, nullable=true)
      */
     private $descriptioninfos;

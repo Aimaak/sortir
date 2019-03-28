@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Site
@@ -23,7 +24,8 @@ class Site
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="string", message="Champ invalide")
      * @ORM\Column(name="nom_site", type="string", length=30)
      */
     private $nomSite;
