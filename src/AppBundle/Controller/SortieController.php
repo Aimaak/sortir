@@ -10,9 +10,11 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Etat;
+use AppBundle\Entity\Lieu;
 use AppBundle\Entity\Participant;
 use AppBundle\Entity\Site;
 use AppBundle\Entity\Sortie;
+use AppBundle\Form\LieuType;
 use AppBundle\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

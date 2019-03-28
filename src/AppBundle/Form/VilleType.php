@@ -15,8 +15,7 @@ class VilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nomVille')
-            ->add('codePostal')
-            ->add('valider', SubmitType::class);
+            ->add('codePostal');
     }
 
     /**

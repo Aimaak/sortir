@@ -3,7 +3,7 @@
     background-size: cover;
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
-    height: 13em;
+    height: 4em;
     overflow: hidden;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
@@ -175,4 +175,26 @@ section
     100% {
         top: 0;
     }
+}
+
+#loisirs
+{
+    width: 800px;
+    height: 100px;
+}
+
+#sortir
+{
+    width: 100px;
+    height: 50px;
+}
+
+#mon-profil
+{
+    alignment: center;
+}
+
+h1
+{
+    text-align: center;
 }

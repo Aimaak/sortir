@@ -16,10 +16,9 @@ class LieuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ville')
+            ->add('ville', VilleType::class)
             ->add('nomLieu', TextType::class, ['label' => 'Lieu : '])
             ->add('rue')
-            ->add('codePostal', EntityType::class, ["class" => "AppBundle\Entity\Ville"])
             ->add('latitude')
             ->add('longitude');
 

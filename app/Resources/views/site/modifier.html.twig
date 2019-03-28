@@ -1,6 +1,10 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_pure.html.twig' %}
+
 
 {% block maincontent %}
     {{ form(form) }}
+    <br><br>
+    {{ form_row(form.valider, {'attr' : {'class' : 'pure-button pure-button-primary btn-lg'}}) }}
+
 {% endblock %}
 

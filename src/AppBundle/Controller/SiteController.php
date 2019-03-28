@@ -34,6 +34,7 @@ class SiteController extends Controller
         if (!empty($request->get("nomSite"))) {
             $site = new Site();
 
+
             $site->setNomSite($request->get("nomSite"));
 
             $em->persist($site);
