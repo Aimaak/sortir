@@ -16,7 +16,6 @@
             <h3>Date du jour : {{ "now"|date("d/m/Y") }}</h3>
             <h3>Participant(e) : {{ app.user.prenom }} {{ app.user.nom }}</h3>
         </div>
-
     </div>
     <br><br>
     <h3>Filtrer les sorties</h3>
@@ -61,19 +60,19 @@
                 <div class="pure-form form-radio">
                     <div class="pure-control-group ">
                         <label for="filtres" class="filtres pure-checkbox">
-                            <input type="radio" id="organisateur" name="filtres">
+                            <input type="checkbox" class="checkbox" id="organisateur" name="filtres">
                             Sorties dont je suis l'organisateur/trice
                         </label>
                         <label for="filtres" class="filtres pure-checkbox">
-                            <input type="radio" id="inscrit" name="filtres">
+                            <input type="checkbox" class="checkbox" id="inscrit" name="filtres">
                             Sorties auxquelles je suis inscrit/e
                         </label>
                         <label for="filtres" class="filtres pure-checkbox">
-                            <input type="radio" id="nonInscrit" name="filtres" disabled>
+                            <input type="checkbox" class="checkbox" id="nonInscrit" name="filtres" disabled>
                             Sorties auxquelles je ne suis pas inscrit/e
                         </label>
                         <label for="filtres" class="filtres pure-checkbox">
-                            <input type="radio" id="passees" name="filtres">
+                            <input type="checkbox" class="checkbox" id="passees" name="filtres">
                             Sorties passées
                         </label>
                     </div>

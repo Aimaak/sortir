@@ -3,12 +3,11 @@
 {% block maincontent %}
     <div class="background">
         <div class="background-text">
-
-    {% if error %}
-        <div id="alert" class="alert">
-            <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
-        </div>
-    {% endif %}
+            {% if error %}
+                <div id="alert" class="alert">
+                    <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
+                </div>
+            {% endif %}
             {% for message in app.flashes("success") %}
                 <div id="alert"><a class="alert-success" href="#alert">{{ message }}</a></div>
             {% endfor %}

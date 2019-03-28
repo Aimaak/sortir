@@ -27,7 +27,6 @@ security:
             security: false
 
         main:
-            access_denied_url: /sortie
             pattern: ^/
             anonymous: true
             provider: chain_provider

@@ -79,17 +79,3 @@ $('#inscrit').click(function () {
     }
 
 });
-
-$('#nonInscrit').click(function () {
-
-    if (this.checked) {
-        $('#sortiesnonInscrit').show();
-        $('#sorties').hide();
-    }
-
-    if ( $('#nonInscrit').filter(':checked').length === 0 ) {
-        $('#sortiesnonInscrit').hide();
-        $('#sorties').show();
-    }
-
-});
