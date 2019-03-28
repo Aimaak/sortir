@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ville
@@ -23,14 +24,16 @@ class Ville
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="string", message="Champ invalide")
      * @ORM\Column(name="nom_ville", type="string", length=30)
      */
     private $nomVille;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="integer", message="Champ invalide")
      * @ORM\Column(name="code_postal", type="string", length=10)
      */
     private $codePostal;

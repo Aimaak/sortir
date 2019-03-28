@@ -3,7 +3,6 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Lieu;
-use AppBundle\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -14,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Date;
 
 class SortieType extends AbstractType
 {
@@ -26,15 +24,17 @@ class SortieType extends AbstractType
 
         $builder->add('nom', TextType::class, ['label' => 'Nom de la sortie : '])
             ->add('datedebut', DateTimeType::class, array(
-                        'years' => range(date('Y'), date('Y') + 100),
-                        'months' => range(date('m'), 12),
-                        'days' => range(date('d'), 31),
-                        'hours' => range(\date('h'), 23),
-                        'minutes' => range(\date('i'), 59),
+                        'years' => range(date('Y'), date('Y') + 10),
+                        'months' => range(1, 12),
+                        'days' => range(1, 31),
+                        'hours' => range(0, 23),
+                        'minutes' => range(00, 59),
+                        'data' => new \DateTime("now + 1 week"),
                         'label' => 'Date et heure de la sortie'))
             ->add('datecloture', DateType::class, array('years' => range(date('Y'), date('Y') + 10),
-                        'months' => range(date('m'), 12),
-                        'days' => range(date('d'), 31),
+                        'months' => range(1, 12),
+                        'days' => range(1, 31),
+                        'data' => new \DateTime("now + 6 days"),
                         'label' => 'Date limite d\'inscription'))
             ->add('nbinscriptionsmax', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('duree', NumberType::class, ['label' => 'Durée'])

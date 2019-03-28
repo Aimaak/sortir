@@ -13,12 +13,15 @@ use AppBundle\Entity\Ville;
 use AppBundle\Form\SortieType;
 use AppBundle\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @IsGranted("ROLE_USER", message="blblbllb")
  * @Route("/ville", name="ville_")
  * Class VilleController
  * @package AppBundle\Controller

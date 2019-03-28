@@ -176,7 +176,7 @@ class SortieController extends Controller
 
                 $this->addFlash("success", "Sortie enregistrée avec succès");
                 return $this->redirectToRoute("sortie_liste");
-            } elseif ($sortieForm->get('Publier la sortie')->isClicked()) {
+            } elseif ($sortieForm->get('Publier_la_sortie')->isClicked()) {
                 $sortie->setEtat($em->getRepository(Etat::class)->find(2));
                 $em->persist($sortie);
                 $em->flush();

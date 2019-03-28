@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Participant
@@ -23,6 +24,13 @@ class Participant implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 30,
+     *      minMessage = "Votre pseudo doit au moins faire {{ min }} caractères",
+     *      maxMessage = "Votre pseudo ne doit pas faire plus de {{ max }} caractères"
+     * )
      * @var string
      *
      * @ORM\Column(name="pseudo", type="string", length=30)
@@ -31,33 +39,49 @@ class Participant implements UserInterface
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Votre nom doit au moins faire {{ min }} caractères",
+     *      maxMessage = "Votre nom ne doit pas faire plus de {{ max }} caractères"
+     * )
      * @ORM\Column(name="nom", type="string", length=30)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Votre prénom doit au moins faire {{ min }} caractères",
+     *      maxMessage = "Votre prénom ne doit pas faire plus de {{ max }} caractères"
+     * )
      * @ORM\Column(name="prenom", type="string", length=30)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="telephone", type="string", length=15, nullable=true)
      */
     private $telephone;
 
     /**
      * @var string
-     *
+     * @Assert\Email()
      * @ORM\Column(name="mail", type="string", length=20)
      */
     private $mail;
 
     /**
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "Votre mot de passe doit au moins faire {{ min }} caractères"
+     * )
      * @var string
      *
      * @ORM\Column(name="motdepasse", type="string", length=255)
