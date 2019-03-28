@@ -89,6 +89,7 @@ class Sortie
 
     /**
      * @var
+     * @Assert\NotBlank(message="Veuillez choisir un lieu")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Lieu", inversedBy="sorties")
      */
     private $lieu;
@@ -101,6 +102,7 @@ class Sortie
 
     /**
      * @var
+     * @Assert\NotBlank(message="Veuillez choisir un site")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="sorties")
      */
     private $site;
