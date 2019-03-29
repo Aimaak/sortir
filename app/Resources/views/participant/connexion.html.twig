@@ -1,28 +1,42 @@
-{% extends "layout.html.twig" %}
+{% extends "layout_pure.html.twig" %}
 
 {% block maincontent %}
+    <div class="background">
+        <div class="background-text">
+            {% if error %}
+                <div id="alert" class="alert">
+                    <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
+                </div>
+            {% endif %}
+            {% for message in app.flashes("success") %}
+                <div id="alert"><a class="alert-success" href="#alert">{{ message }}</a></div>
+            {% endfor %}
 
-    {% if error %}
-        <div class="alert">
-            <a class="alert-error" href="#alert">{{ error.messagekey|trans(error.messageData, 'security') }}</a>
-        </div>
-    {% endif %}
+            <form class="pure-form pure-form-aligned" method="post" id="login">
+                <fieldset>
+                    <img class="pure-img" src="{{ asset('img/login.jpg') }}" alt="login">
+                    <br><br>
 
-    <form class="pure-form" method="post">
-        <div class="pure-control-group">
-            <label for="_username">Pseudo</label>
-            <input type="text" class="form-control" id="_username" name="_username" value="{{ lastUsername }}">
+                    <div class="pure-control-group">
+                        <label for="_username">Identifiant : </label>
+                        <input id="_username" type="text" placeholder="Identifiant" name="_username" value="{{ lastUsername }}">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="_password">Mot de passe : </label>
+                        <input id="_password" type="password" placeholder="Mot de passe" name="_password">
+                    </div>
+
+                    <div class="pure-controls">
+                        <label for="remember_me" class="pure-checkbox">
+                            <input id="remember_me" type="checkbox"> Se souvenir de moi
+                        </label>
+
+                        <button type="submit" class="pure-button pure-button-primary">Connexion</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-        <div class="pure-control-group">
-            <label for="_password">Mot de passe</label>
-            <input type="password" class="form-control" id="_password" name="_password">
-        </div>
-        <div class="pure-controls">
-            <label for="remember_me" class="pure-checkbox">
-                <input type="checkbox" id="remember_me" name="_remember_me" checked> Se souvenir de moi
-            </label>
-            <input type="submit" class="pure-button pure-button-primary">Valider</input>
-        </div>
-    </form>
+    </div>
 
 {% endblock %}

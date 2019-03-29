@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block maincontent %}
+    <h1>Page introuvable</h1>
+
+    <p>
+        La page que vous avez demandé est inaccessible. Vérifiez votre saisie ou bien <a
+                href="{{ path('sortie_liste') }}">retourner à l'accueil</a>.
+    </p>
+{% endblock %}

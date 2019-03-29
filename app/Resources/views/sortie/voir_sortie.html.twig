@@ -1,114 +1,181 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_pure.html.twig' %}
+
 
 {% block maincontent %}
     <header>
-        <h1>{{ sortie.nom }}</h1>
-        <p>Proposé par <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a></p>
+        <h2 align="center">{{ sortie.nom }}</h2>
+        <h4 align="center">Proposé par
+            <a href="{{ path('profil_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a>
+        </h4>
+        <br><br>
     </header>
-    <section>
+    <form class="formSortie" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticSortie" class="col-sm-5 col-form-label">Nom de la sortie : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticSortie"
+                               value="{{ sortie.nom }}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticVilleOrganisatrice" class="col-sm-5 col-form-label">Ville Organisatrice : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticVilleOrganisatrice"
+                               value="{{ sortie.site }}">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <form class="champs_g">
+        <div class="form-row">
+            <div class="form-group col-md-6">
                 <div class="form-group row">
-                    <label for="staticSortie" class="col-sm-2 col-form-label">Nom de la sortie : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticSortie" value="{{ sortie.nom }}">
+                    <label for="staticDateHeureSortie" class="col-sm-5 col-form-label">Date et heure de la sortie
+                        : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticDateHeureSortie"
+                               value="{{ sortie.datedebut|date('d/m/Y H\\Hi') }}">
                     </div>
                 </div>
+            </div>
+            <div class="form-group col-md-6">
                 <div class="form-group row">
-                    <label for="staticDateHeureSortie" class="col-sm-2 col-form-label">Date et heure de la sortie : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticDateHeureSortie" value="{{ sortie.datedebut|date('d/m/Y H\\Hi') }}">
+                    <label for="staticVille" class="col-sm-5 col-form-label">Ville : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticVille"
+                               value="{{ sortie.lieu.ville }}">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="staticDateLimInscription" class="col-sm-2 col-form-label">Date limite d'inscription : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticDateLimInscription" value="{{ sortie.datecloture|date('d/m/Y') }}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticNbPlaces" class="col-sm-2 col-form-label">Nombre de places : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticNbPlaces" value="{{ sortie.nbinscriptionsmax }}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticDuree" class="col-sm-2 col-form-label">Durée : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticDuree" value="{{ sortie.duree }} minutes">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticDescription" class="col-sm-2 col-form-label">Description et infos : </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="staticDescription" value="{{ sortie.descriptioninfos }}">
-                    </div>
-                </div>
-            </form>
+            </div>
+        </div>
 
-        <form class="champs_d">
-            <div class="form-group row">
-                <label for="staticVilleOrganisatrice" class="col-sm-2 col-form-label">Ville Organisatrice : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticVilleOrganisatrice" value="{{ sortie.site }}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticDateLimInscription" class="col-sm-5 col-form-label">Date limite d'inscription
+                        : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticDateLimInscription"
+                               value="{{ sortie.datecloture|date('d/m/Y') }}">
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="staticVille" class="col-sm-2 col-form-label">Ville : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticVille" value="{{ sortie.lieu.ville }}">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticLieu" class="col-sm-5 col-form-label">Lieu : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticLieu"
+                               value="{{ sortie.lieu }}">
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group row">
-                <label for="staticLieu" class="col-sm-2 col-form-label">Lieu : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticLieu" value="{{ sortie.lieu }}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticNbPlaces" class="col-sm-5 col-form-label">Nombre de places : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticNbPlaces"
+                               value="{{ sortie.nbinscriptionsmax }}">
+                    </div>
                 </div>
             </div>
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticRue" class="col-sm-5 col-form-label">Rue : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticRue"
+                               value="{{ sortie.lieu.rue }}">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <div class="form-group row">
-                <label for="staticRue" class="col-sm-2 col-form-label">Rue : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticRue" value="{{ sortie.lieu.rue }}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticDuree" class="col-sm-5 col-form-label">Durée : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticDuree"
+                               value="{{ sortie.duree }} minutes">
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="staticCP" class="col-sm-2 col-form-label">Code Postal : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticCP" value="{{ sortie.lieu.ville.codepostal }}">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticCP" class="col-sm-5 col-form-label">Code Postal : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticCP"
+                               value="{{ sortie.lieu.ville.codepostal }}">
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="staticLatitude" class="col-sm-2 col-form-label">Latitude : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticLatitude" value="{{ sortie.lieu.latitude }}">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticDescription" class="col-sm-5 col-form-label">Description et infos : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticDescription"
+                               value="{{ sortie.descriptioninfos }}">
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="staticLongitude" class="col-sm-2 col-form-label">Longitude : </label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticLongitude" value="{{ sortie.lieu.longitude }}">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticLatitude" class="col-sm-5 col-form-label">Latitude : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticLatitude"
+                               value="{{ sortie.lieu.latitude }}">
+                    </div>
                 </div>
             </div>
-        </form>
-    </section>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label for="staticLongitude" class="col-sm-5 col-form-label">Longitude : </label>
+                    <div class="col-sm-7">
+                        <input type="text" readonly class="form-control-plaintext" id="staticLongitude"
+                               value="{{ sortie.lieu.longitude }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <h3>Liste des participants inscrits :</h3>
     <table class="pure-table">
-        <tr class="pure-table-odd">
+        <thead class="pure-table-odd">
+        <tr>
             <th>Pseudo</th>
             <th>Nom</th>
         </tr>
+        </thead>
+        <tbody>
         {% for participant in sortie.participants %}
             <tr class="pure-table-odd">
                 <td>
                     {{ participant.pseudo }}
                 </td>
                 <td>
-                    {{ participant.prenom }} {{ participant.nom }}
+                    {{ participant.prenom }} {{ participant.nom|upper }}
                 </td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
 

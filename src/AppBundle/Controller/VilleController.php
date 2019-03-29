@@ -13,12 +13,15 @@ use AppBundle\Entity\Ville;
 use AppBundle\Form\SortieType;
 use AppBundle\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @IsGranted("ROLE_USER", message="blblbllb")
  * @Route("/ville", name="ville_")
  * Class VilleController
  * @package AppBundle\Controller
@@ -31,8 +34,18 @@ class VilleController extends Controller
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listeAction(EntityManagerInterface $em)
+    public function listeAction(EntityManagerInterface $em, Request $request)
     {
+        if (!empty($request->get("codePostal")) && !empty($request->get("nomVille"))) {
+            $ville = new Ville();
+
+            $ville->setCodePostal($request->get("codePostal"));
+            $ville->setNomVille($request->get("nomVille"));
+
+            $em->persist($ville);
+            $em->flush();
+        }
+
         $villes = $em->getRepository(Ville::class)->findAll();
 
         return $this->render("ville/liste.html.twig", [

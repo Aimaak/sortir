@@ -1,14 +1,22 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_pure.html.twig' %}
+
 
 {% block recherche %}
 
 {% endblock %}
 
 {% block maincontent %}
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
-    {{ form_start(form) }}
+    {% for message in app.flashes("error") %}
+        <div id="alert"><a class="alert-error" href="#alert">{{ message }}</a></div>
+    {% endfor %}
+    <header>
+        <h2 align="center">Créer une sortie</h2>
+    </header>
 
-    {{ form_end(form) }}
-    <a class="pure-button pure-button-primary" href="{{ path('sortie_liste') }}">Annuler</a>
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+    {{ form(form) }}
+    <a href="{{ path('sortie_liste') }}" class="pure-button pure-button-primary">Annuler</a>
+
 {% endblock %}
 

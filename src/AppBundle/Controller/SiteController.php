@@ -29,8 +29,18 @@ class SiteController extends Controller
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listeAction(EntityManagerInterface $em)
+    public function listeAction(EntityManagerInterface $em, Request $request)
     {
+        if (!empty($request->get("nomSite"))) {
+            $site = new Site();
+
+
+            $site->setNomSite($request->get("nomSite"));
+
+            $em->persist($site);
+            $em->flush();
+        }
+
         $sites = $em->getRepository(Site::class)->findAll();
 
         return $this->render("site/liste.html.twig", [

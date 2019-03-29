@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Participant;
+use AppBundle\Entity\Lieu;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -21,17 +21,28 @@ class SortieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom', TextType::class)
-            ->add('datedebut', DateTimeType::class)
-            ->add('datecloture', DateType::class)
-            ->add('nbinscriptionsmax', NumberType::class)
-            ->add('duree', NumberType::class)
-            ->add('descriptioninfos', TextareaType::class)
-            ->add('lieu', EntityType::class, ["class" => "AppBundle\Entity\Lieu"])
-            ->add('site', EntityType::class, ["class" => "AppBundle\Entity\Site"])
+
+        $builder->add('nom', TextType::class, ['label' => 'Nom de la sortie : '])
+            ->add('datedebut', DateTimeType::class, array(
+                        'years' => range(date('Y'), date('Y') + 10),
+                        'months' => range(1, 12),
+                        'days' => range(1, 31),
+                        'hours' => range(0, 23),
+                        'minutes' => range(00, 59),
+                        'data' => new \DateTime("now + 1 week"),
+                        'label' => 'Date et heure de la sortie'))
+            ->add('datecloture', DateType::class, array('years' => range(date('Y'), date('Y') + 10),
+                        'months' => range(1, 12),
+                        'days' => range(1, 31),
+                        'data' => new \DateTime("now + 6 days"),
+                        'label' => 'Date limite d\'inscription'))
+            ->add('nbinscriptionsmax', NumberType::class, ['label' => 'Nombre de places : '])
+            ->add('duree', NumberType::class, ['label' => 'Durée'])
+            ->add('descriptioninfos', TextareaType::class, ['label' => 'Description et infos : '])
+            ->add('site')
+            ->add('lieu')
             ->add("enregistrer", SubmitType::class)
-            ->add("Publier la sortie", SubmitType::class)
-            ->add('Supprimer la sortie', SubmitType::class);
+            ->add("Publier_la_sortie", SubmitType::class);
 
     }
 

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Lieu
@@ -23,14 +24,15 @@ class Lieu
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type(type="string", message="Champ invalide")
      * @ORM\Column(name="nom_lieu", type="string", length=30)
      */
     private $nomLieu;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Champ obligatoire")
      * @ORM\Column(name="rue", type="string", length=30, nullable=true)
      */
     private $rue;
@@ -51,7 +53,7 @@ class Lieu
 
     /**
      * @var
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ville", inversedBy="lieux")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ville", inversedBy="lieux", cascade={"persist"})
      */
     private $ville;
 

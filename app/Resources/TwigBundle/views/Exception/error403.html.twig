@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block maincontent %}
+    <h1>Accès refusé</h1>
+
+    <p>
+        La page que vous avez demandé requiert des droits. <a
+                href="{{ path('sortie_liste') }}">Retourner à l'accueil</a>.
+    </p>
+{% endblock %}

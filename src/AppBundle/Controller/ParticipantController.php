@@ -53,7 +53,7 @@ class ParticipantController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
 
             $toSavePassword = $passwordEncoder->encodePassword($participant, $participant->getPassword());
             $participant->setMotdepasse($toSavePassword);

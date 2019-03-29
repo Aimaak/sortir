@@ -1,45 +1,48 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_pure.html.twig' %}
 
 {% block maincontent %}
-    <h1>{{ participant.pseudo }}</h1>
 
 
-    <form>
-        <div class="form-group row">
-            <label for="staticPrenom" class="col-sm-2 col-form-label">Prénom : </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticPrenom" value="{{ participant.prenom }}">
+    <form method="post" class="pure-form pure-g">
+        <div class="pure-u-lg-1-3">
+            <img src="{{ asset('img/mon_profil2.jpg') }}" class="pure-img" alt="mon profil">
+
+        </div>
+
+        <div class="pure-u-lg-1-3">
+            <h1>{{ participant.pseudo }}</h1>
+            <br><br>
+            <div class="pure-form pure-form-aligned">
+
+                <div class="pure-control-group">
+                    <label for="staticPseudo">Prénom : </label>
+                    <input type="text" id="staticPseudo" value="{{ participant.prenom }}" readonly>
+                </div>
+                <div class="pure-control-group">
+                    <label for="staticPseudo">Nom : </label>
+                    <input type="text" id="staticPseudo" value="{{ participant.nom }}" readonly>
+                </div>
+                <div class="pure-control-group">
+                    <label for="staticPseudo">Téléphone : </label>
+                    <input type="text" id="staticPseudo" value="{{ participant.telephone }}" readonly>
+                </div>
+                <div class="pure-control-group">
+                    <label for="staticPseudo">Email : </label>
+                    <input type="text" id="staticPseudo" value="{{ participant.mail }}" readonly>
+                </div>
+                <div class="pure-control-group">
+                    <label for="staticPseudo">Ville de rattachement : </label>
+                    <input type="text" id="staticPseudo" value="{{ participant.site }}" readonly>
+                </div>
+                <div class="pure-u-lg-1-2">
+                    <a href="{{ path('sortie_liste') }}" class="pure-button pure-button-primary">Retour</a>
+
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="staticNom" class="col-sm-2 col-form-label">Nom : </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticNom" value="{{ participant.nom }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticTel" class="col-sm-2 col-form-label">Téléphone : </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticTel" value="{{ participant.telephone }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email : </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ participant.mail }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticVilleRattachement" class="col-sm-2 col-form-label">Ville de rattachement : </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticVilleRattachement" value="{{ participant.site }}">
-            </div>
-        </div>
+
+
     </form>
 
-    <div>
-        <a href="{{ path('sortie_liste') }}" class="btn btn-info">Retour</a>
-    </div>
 
 {% endblock %}
-

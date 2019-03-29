@@ -1,0 +1,29 @@
+{% extends 'layout_pure.html.twig' %}
+
+
+{% block maincontent %}
+    {#<div id="modal1" class="modal">#}
+        {#<div class="modal-content">#}
+            {#{{ sortie.nom }}#}
+            {#<!-- Il faut préciser l'action dans le formulaire -->#}
+            {#{{ form_start(form, {'action': path('sortie_inscriptionSortie', { 'id': sorties.id })}) }}#}
+            {#{{ form_widget(form) }}#}
+            {#{{ form_end(form) }}#}
+            {#<a class="pure-button pure-button-primary" href="{{ path('sortie_liste') }}">Non</a>#}
+
+        {#</div>#}
+        {#<div class="modal-footer">#}
+
+        {#</div>#}
+    {#</div>#}
+
+    <p>Voulez-vous vraiment vous inscrire ?</p>
+
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+    <a class="pure-button pure-button-primary" href="{{ path('sortie_liste') }}">Non</a>
+
+{% endblock %}
+
