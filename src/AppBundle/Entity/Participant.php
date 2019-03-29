@@ -104,6 +104,7 @@ class Participant implements UserInterface
     private $actif;
 
     /**
+     * @Assert\NotBlank(message="Veuillez choisir un site.")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Site", inversedBy="participants")
      */
     private $site;
