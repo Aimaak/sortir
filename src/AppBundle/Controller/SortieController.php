@@ -125,7 +125,8 @@ class SortieController extends Controller
         $sortieForm->handleRequest($request);
 
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()
+            && $sortie->getDateDebut() > $sortie->getDatecloture()) {
             $sortie->setOrganisateur($this->getUser());
 
             if ($sortieForm->get('enregistrer')->isClicked()) {
@@ -167,7 +168,8 @@ class SortieController extends Controller
 
         $sortieForm->handleRequest($request);
 
-        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()
+            && $sortie->getDateDebut() > $sortie->getDatecloture()) {
 
             $sortie->setOrganisateur($this->getUser());
 
