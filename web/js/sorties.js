@@ -43,6 +43,8 @@ $('#organisateur').click(function () {
     if (this.checked) {
         $('#mesSorties').show();
         $('#sorties').hide();
+        $('#sortiesPassees').hide();
+        $('#sortiesInscrit').hide();
     }
 
     if ( $('#organisateur').filter(':checked').length === 0 ) {
@@ -57,6 +59,8 @@ $('#passees').click(function () {
     if (this.checked) {
         $('#sortiesPassees').show();
         $('#sorties').hide();
+        $('#sortiesInscrit').hide();
+        $('#mesSorties').hide();
     }
 
     if ( $('#passees').filter(':checked').length === 0 ) {
@@ -71,6 +75,8 @@ $('#inscrit').click(function () {
     if (this.checked) {
         $('#sortiesInscrit').show();
         $('#sorties').hide();
+        $('#mesSorties').hide();
+        $('#sortiesPassees').hide();
     }
 
     if ( $('#inscrit').filter(':checked').length === 0 ) {
